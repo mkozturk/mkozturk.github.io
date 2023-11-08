@@ -1,14 +1,11 @@
 [
   {
     "listing": "/blog-en.html",
-    "items": [
-      "/posts/en/2023/combining-forecasts/index.html"
-    ]
+    "items": []
   },
   {
     "listing": "/blog.html",
     "items": [
-      "/posts/en/2023/combining-forecasts/index.html",
       "/posts/tr/2023/secim-sandiginda-bayes/index.html"
     ]
   },
