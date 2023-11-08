@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Kaan Öztürk">
+<meta name="dcterms.date" content="2023-11-07">
+<meta name="description" content="A discussion of basic approaches to times-series forecasting">
+
+<title>Kaan Öztürk - Forecasting, especially the future</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../../../styles.css">
+<meta name="twitter:title" content="Kaan Öztürk - Forecasting, especially the future">
+<meta name="twitter:description" content="A discussion of basic approaches to times-series forecasting">
+<meta name="twitter:image" content="https://mkozturk.github.io/posts/en/2023/forecasting-especially-the-future/fortunetelling.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../../index.html">
+    <span class="navbar-title">Kaan Öztürk</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../../index.html" rel="" target="">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-blog" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Blog</span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-blog">    
+        <li>
+    <a class="dropdown-item" href="../../../../blog.html" rel="" target="">
+ <span class="dropdown-text">All posts</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../blog-en.html" rel="" target="">
+ <span class="dropdown-text">English</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../../../blog-tr.html" rel="" target="">
+ <span class="dropdown-text">Türkçe</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Forecasting, especially the future</h1>
+                  <div>
+        <div class="description">
+          A discussion of basic approaches to times-series forecasting
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">data science</div>
+                <div class="quarto-category">time series</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kaan Öztürk </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">November 7, 2023</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-need-to-forecast1" id="toc-the-need-to-forecast1" class="nav-link active" data-scroll-target="#the-need-to-forecast1">The need to forecast[^1]</a></li>
+  <li><a href="#simple-methods" id="toc-simple-methods" class="nav-link" data-scroll-target="#simple-methods">Simple methods</a></li>
+  <li><a href="#exponential-smoothing" id="toc-exponential-smoothing" class="nav-link" data-scroll-target="#exponential-smoothing">Exponential smoothing</a></li>
+  <li><a href="#arima" id="toc-arima" class="nav-link" data-scroll-target="#arima">ARIMA</a></li>
+  <li><a href="#multiple-time-series-external-variables" id="toc-multiple-time-series-external-variables" class="nav-link" data-scroll-target="#multiple-time-series-external-variables">Multiple time series, external variables</a></li>
+  <li><a href="#more-advanced-methods" id="toc-more-advanced-methods" class="nav-link" data-scroll-target="#more-advanced-methods">More advanced methods</a></li>
+  <li><a href="#which-one-is-the-best-method" id="toc-which-one-is-the-best-method" class="nav-link" data-scroll-target="#which-one-is-the-best-method">Which one is the best method?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+<section id="the-need-to-forecast1" class="level2">
+<h2 class="anchored" data-anchor-id="the-need-to-forecast1">The need to forecast[^1]</h2>
+<p>“It’s difficult to make predictions,” said Niels Bohr, “especially about the future”. This remark strikes as funny, almost oxymoronic. After all, what else is there to predict, except the unknown future? However, the famous physicist had a point. His quip encapsulates our age-old frustration with our quest for foretelling the future.</p>
+<p>We need to know the future because it is fundamental for our survival: We had to guess when wild herds of game will return so that we can hunt them, when the snow will fall so that we stock up food in advance, when lions will roam the plains so that we can avoid them. Lacking superior muscular strength and agility, we relied on our brains which evolved to recognize patterns and imagine the future.</p>
+<p>Civilization did not reduce the need to foretell. If anything, this need became even more acute: When will the river Nile flood? Will we have enough rain for the crops? Will my army be victorious in the upcoming war? Will my ship go down in a storm? How much return will I get for this investment? How many amphoras of olive oil will my farm produce next year?</p>
+<p><img src="fortunetelling.jpg" class="img-fluid"></p>
+<p>Desperate to get answers, people asked oracles for gods’ judgment, inspected the entrails of sacrificed animals, recorded the movements of stars. In time, scientific laws and methods of statistical pattern recognition took over. We’d like to think that they perform better than inspecting the livers of sheep. Sometimes, they do.</p>
+</section>
+<section id="simple-methods" class="level2">
+<h2 class="anchored" data-anchor-id="simple-methods">Simple methods</h2>
+<p>How do you forecast if you don’t know anything? The simplest way is to assume that the future will be the same as the past: The monthly return of your investment will be the same as the last month. The wind turbine will produce the same amount of energy in the forthcoming hour as in the past hour. There will be as many visitors to your online store today as yesterday.</p>
+<p>This is aptly called the <strong>naive forecast</strong>, as it is highly myopic and does not involve any sophistication. Still, it can be surprisingly successful, as things do not change too rapidly if you look at them in short time intervals. In any case, the naive method provides a baseline against which other methods can be compared. It is the initial step for any attempt at forecasting.</p>
+<p><img src="fig1.png" class="img-fluid"></p>
+<p>There is always some variation around the “real” value, which we model as a random variable. The universal way to reduce this variation is averaging: Your forecast will be the mean of a number of past values (the <em>mean method</em>). How many past values? It depends on your data and the nature of the system you examine. You should inspect your data, plot it, and decide accordingly.</p>
+<p><img src="fig2.png" class="img-fluid"></p>
+<p>Often the data shows a trend. Daily purchases in your online store do, hopefully, increase in time due to the arrival of new customers, resulting in an upward trend.</p>
+<p><img src="fig3.png" class="img-fluid"></p>
+<p>Furthermore, some items may be demanded more on some days than others. For example, school supplies purchases show a yearly seasonal cycle. Similarly, more cars are rented on weekends than on weekdays, and more electricity is consumed in the evenings than at midday. If you naively assume that the electric demand at 19:00 will be the same as that at 17:00, you will end up with planning problems, to say the least. Instead, assuming that the demand at 19:00 today will be the same as that at 19:00 yesterday is closer to truth. This is called the <strong>seasonal naive forecast</strong>.</p>
+</section>
+<section id="exponential-smoothing" class="level2">
+<h2 class="anchored" data-anchor-id="exponential-smoothing">Exponential smoothing</h2>
+<p>Naive methods are a good start, but they will take us only so far. A good statistical model should exploit all the available information in the data, going as far back into the past as possible. For example, to determine how much traffic your website will get tomorrow, you might get the average of all daily visit counts. This would be equivalent to the mean method described above.</p>
+<p>However, the past is not uniform. A lot of things have changed since your website was first launched, and data from a year ago may not contain much useful information about today.</p>
+<p>You realize that you should not give the same weight to all the data. Recent values should influence the forecast more strongly, while those in the past should have little effect, if any. So, you do a weighted average of your data: Yesterday’s weight is, say, 0.1, the day before has weight 0.09, the one before has weight 0.08, and so forth.</p>
+<p>This method is called <strong>simple exponential smoothing</strong>. The word “simple” indicates that it applies to data without trend or seasonality. “Exponential” refers to the fact that the weights are reduced by multiplying with the same small number, so they decay with an exponent further into the past.</p>
+<p>Simple exponential smoothing has the nice property that forecasts correct themselves in the right direction: If it turns out that the forecast for today exceeds the actual value, the next forecast is reduced accordingly.</p>
+<p><img src="fig4.png" class="img-fluid"></p>
+<p>If your data contains a trend or seasonality, you might want to use the <strong>Holt-Winters method</strong>, which is designed to handle such regularities. Simply put, this method incorporates the difference between the estimates at each step and the seasonally-adjusted observations (say, differences between the same days of the week), and weights them exponentially as in the simple method. Although the equations are only moderately complicated, it is advisable to use a software tool or a programming library to do the calculations for you.</p>
+<p><img src="fig5.png" class="img-fluid"></p>
+</section>
+<section id="arima" class="level2">
+<h2 class="anchored" data-anchor-id="arima">ARIMA</h2>
+<p>The workhorse of forecasting, <strong>ARIMA</strong>, stands for <em>AutoRegressive Integrated Moving Average</em>. Fundamental ideas of ARIMA are similar to those of exponential smoothing: We give different weights to past values and to the forecasting errors of the past.</p>
+<p>The <em>autoregressive</em> in ARIMA means that we use the previous data points to estimate the future. This is essentially a <em>linear regression</em>: We multiply each past value by a factor and add them together to get an estimate. The best values for these multipliers are determined by fitting them into the data.</p>
+<p>Similarly, ARIMA takes past forecast errors and adds them together after multiplying each one by a parameter. This can be seen as a <em>moving average</em> of past errors, hence the name. Again, the values of multipliers are determined by fitting the data.</p>
+<p>A fundamental assumption of ARIMA is that the data are required to be <em>“stationary”</em>. In essence, this term means that the data should “look the same” at all times. This does not mean that it should be a flat line, but its statistical properties, such as the mean and the variance, should stay roughly the same.</p>
+<p>For example, the price of a stock is not stationary: It goes steadily up, later maybe down, but essentially you can tell the time window if you are familiar with the market. On the other hand, the <em>daily returns</em> of the stock (day-to-day differences of its price) might be closer to being stationary.</p>
+<p>For this reason, we need to check if the data is stationary before applying ARIMA. If not, we generate a new data series composed of the differences between successive values, check if this new series is stationary, and repeat the differencing as needed. Statistical tests such as the unit root test, or checking the autocorrelation function are helpful to decide if you are good to go.</p>
+<p>If you have a seasonality pattern in your data, such as yearly, weekly, or daily changes, you can use the <strong>seasonal ARIMA (SARIMA)</strong> method. This method selects data according to the seasonality period (for example, the same hour in the day for daily seasonality) and fits an autoregressive and moving-average model, similar to the plain ARIMA.</p>
+<p>ARIMA requires three parameters: The number of autoregressive steps, the number of differencing required for stationarity, and the number of moving-average steps. SARIMA, in addition, requires similar parameters for seasonally-adjusted terms. Not all combinations of parameters make mathematical sense, and the selection of correct parameter values involves some trial-and-error.</p>
+</section>
+<section id="multiple-time-series-external-variables" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-time-series-external-variables">Multiple time series, external variables</h2>
+<p>In some cases, you would want to forecast several related quantities, such as the prices of a group of stocks. You can always set up a separate forecast model for each, but this approach would not capture the predictive power of one stock about the other. A model such as <strong>VARMA</strong> (ARIMA with vector inputs) treats all the data together, allowing you to squeeze out more information from the past.</p>
+<p>Even if you are forecasting a single quantity, incorporating other data might increase the accuracy. For example, to predict the hourly electricity demand, we might consider the local air temperature, time of the day, any day of the week as influencing factors. Such factors are termed exogenous, meaning that we treat them as external factors. In contrast, variables that we want to forecast are termed endogenous. Models such as <strong>ARIMAX</strong> (ARIMA with eXogenous) are designed to add exogenous variables to the forecaster.</p>
+</section>
+<section id="more-advanced-methods" class="level2">
+<h2 class="anchored" data-anchor-id="more-advanced-methods">More advanced methods</h2>
+<p>Methods such as ARIMA and exponential smoothing are essentially linear methods. Linear models, although sufficiently accurate most of the time, may fail to capture nonlinear features and interactions between features.</p>
+<p>Using past values and exogenous variables as features, one can set up a regression model. Quite a few machine learning algorithms perform regression without assuming a linear form, such as support vector machines, neural networks, and gradient boosting. If the data do not quite fit a linear model, such algorithms may prove to be more successful.</p>
+<p><strong>Recurrent neural networks (RNN)</strong> is a deep learning algorithm designed to work with sequential data. One of its extensions, <strong>The Long Short-Term Memory (LSTM)</strong> algorithm, is an extension of it, designed to look farther into the past.</p>
+<p>RNN and LSTM have proven their worth in tasks such as automated text generation or speech recognition. However, they have had mixed success for time-series forecasting. In addition, their training requires significant processing power, and they are not feasible except for very long time series.</p>
+<p><strong>Bayesian Structural Time Series (BSTS)</strong> model assumes that observed values are generated by latent (hidden) states and figures out the probability distribution function of these hidden states using Bayesian inference. It is able to use exogenous variables together with the time series itself. BSTS can give credible intervals about the forecasts, which is useful to assess the error of the estimate.</p>
+<p>Facebook’s open-source package <strong>Prophet</strong> is a general model representing the forecast as the sum of trend and seasonality, and it can also incorporate holiday effects. Unlike most other methods, it can handle multiple seasonalities. Nonlinear trends with yearly, weekly, and daily seasonality can be fit.</p>
+</section>
+<section id="which-one-is-the-best-method" class="level2">
+<h2 class="anchored" data-anchor-id="which-one-is-the-best-method">Which one is the best method?</h2>
+<p>Statisticians have wrestled with this question for many years and tried to compare the performance of algorithms with the so-called <em>M-competitions</em>. Upon analysis of competition entries, each provided by experienced researchers, <a href="https://sci-hub.se/10.1016/S0169-2070(00)00057-1">it was concluded that</a>: <em>“Statistically sophisticated or complex methods do not necessarily provide more accurate forecasts than simpler ones.”</em></p>
+<p>It seems that there is no “The One Algorithm” to foretell the future.</p>
+<p>However, there is a silver lining. These competitions also show that combining several methods (for example, by averaging the forecasts) gives a more accurate forecast compared to individual methods. So, developing several independent simple forecasters and averaging their outcomes seems to be a better use of your time than tweaking a sophisticated deep-learning network for many weeks.</p>
+<p>It turns out that Bohr was right. Predicting the future IS significantly hard.</p>
+<p>(Data in the figures is taken from the <a href="https://archive.ics.uci.edu/ml/datasets/synthetic+control+chart+time+series">Synthetic Control Chart Time Series Data Set</a> in the <a href="https://archive.ics.uci.edu/ml/index.php">UCI Machine Learning Repository</a>. The <a href="https://www.statsmodels.org/stable/index.html">statsmodels</a> library is used for exponential smoothing.)</p>
+<p><em>(This post was first published in <a href="https://www.kavaken.com/blog/forecasting-especially-the-future">Kavaken company blog</a> on October 26, 2021.)</em></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
