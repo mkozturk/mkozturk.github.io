@@ -1,0 +1,40 @@
+---
+title: "Kaan Öztürk"
+image: profile.jpeg
+about:
+  template: trestles
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/mkozturk
+    - text: Bluesky
+      href: https://bsky.app/profile/mkozturk.bsky.social
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/kaan-%C3%B6zt%C3%BCrk-b1a2576/
+    - icon: github
+      text: Github
+      href: https://github.com/mkozturk
+    - icon: Googlescholar
+      text: Google Scholar
+      href: https://scholar.google.com.tr/citations?user=HoZDB8MAAAAJ&hl=en
+    - text: Blog
+      href: blog.html
+    - icon: wordpress
+      text: WordPress Blog
+      href: https://mkoz.wordpress.com/
+---
+
+I am a senior data scientist, currently working at [Kavaken](https://www.kavaken.com/), developing predictive analytics tools for wind turbines. I live in Istanbul and Tekirdağ with my family and our three cats.
+
+My training is in physics, with a PhD in magnetospheric physics. I have taught in various universities for more than a decade, before leaving academia altogether for a career in data science.
+
+I'm a proud alumnus of İstanbul Erkek Lisesi, Boğaziçi University, and Rice University.
+
+This site is mainly about my technical notes. For the interested, I have written a number of pieces in other websites (all in Turkish):
+
+* [Yalansavar](https://yalansavar.org/author/mkoz/): Scientific skepticism
+* [Açık Bilim](http://www.acikbilim.com/author/kaanozturk): Popular science
+* [Veri Defteri](http://www.veridefteri.com/author/kaan/): Data science, machine learning, programming.
+* [BirGün Gazetesi](https://www.birgun.net/profil/m-kaan-ozturk-344): Biweekly column on scientific skepticism
+* [Wordpress Blog](https://mkoz.wordpress.com/): My other personal blog

@@ -1,0 +1,21 @@
+---
+title: "Blog"
+listing:
+  - id: posts-en
+    contents: "*/tr/**/*.qmd"
+    type: default
+    fields: [image, date, title, subtitle, categories, author, reading-time]  
+    sort: "date desc"
+    # categories: cloud
+    sort-ui: true
+    filter-ui: true
+    page-size: 10
+page-layout: full
+title-block-banner: false
+comments: false
+---
+
+## Türkçe Yazılar
+
+::: {#posts-tr}
+:::
