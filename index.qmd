@@ -18,11 +18,6 @@ about:
     - icon: Googlescholar
       text: Google Scholar
       href: https://scholar.google.com.tr/citations?user=HoZDB8MAAAAJ&hl=en
-    - text: Blog
-      href: blog.html
-    - icon: wordpress
-      text: WordPress Blog
-      href: https://mkoz.wordpress.com/
 ---
 
 I am a senior data scientist, currently working at [Kavaken](https://www.kavaken.com/), developing predictive analytics tools for wind turbines. I live in Istanbul and Tekirdağ with my family and our three cats.
