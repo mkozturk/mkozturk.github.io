@@ -89,7 +89,7 @@ Tabii biz asıl oy oranını bilmiyoruz, o yüzden tersten gideceğiz: Farklı o
 #| fig-cap: "Oy oranına göre, iki uzunlukta en az bir dizi görme olasılığı"
 
 r = np.linspace(0, 1, 101)
-L = [olabilirlik(rr, oy_sayısı=100, deneme=100, gözlenen_uzunluk=2) for rr in r]
+L = [olabilirlik(rr, oy_sayısı=100, deneme=10000, gözlenen_uzunluk=2) for rr in r]
 plt.plot(r, L)
 plt.xlabel("RTE oy oranı")
 plt.ylabel("Olabilirlik")
@@ -136,7 +136,7 @@ prior = np.ones_like(r)
 prior /= sum(prior) # normalizasyon
 
 # her oy oranı için olabilirliği hesapla
-L = [olabilirlik(rr, oy_sayısı=100, deneme=100, gözlenen_uzunluk=2) for rr in r]
+L = [olabilirlik(rr, oy_sayısı=100, deneme=10000, gözlenen_uzunluk=2) for rr in r]
 
 # her oy oranı için sonsal olasılığı hesapla
 posterior = L*prior
@@ -212,12 +212,12 @@ Hesabı bu ihtimale göre iki aşamada tekrarlayalım. İlk 100 oy içinde en uz
 prior1 = np.ones_like(r)
 prior1 /= sum(prior1)
 
-L1 = [olabilirlik(rr, oy_sayısı=100, deneme=100, gözlenen_uzunluk=3) for rr in r]
+L1 = [olabilirlik(rr, oy_sayısı=100, deneme=10000, gözlenen_uzunluk=3) for rr in r]
 posterior1 = L1*prior1
 posterior1 /= sum(posterior1) # normalizasyon
 
 prior2 = posterior1
-L2 = [olabilirlik(rr, oy_sayısı=100, deneme=100, gözlenen_uzunluk=2) for rr in r]
+L2 = [olabilirlik(rr, oy_sayısı=100, deneme=10000, gözlenen_uzunluk=2) for rr in r]
 posterior2 = L2*prior2
 posterior2 /= sum(posterior2) # normalizasyon
 
@@ -252,7 +252,7 @@ Yine, ilk 100 oyda en uzun zincirin 2 uzunlukta olduğunu varsayarak sonsal hesa
 prior = r**81 * (1-r)**276
 prior /= sum(prior)
 
-L = [olabilirlik(rr, oy_sayısı=100, deneme=100, gözlenen_uzunluk=2) for rr in r]
+L = [olabilirlik(rr, oy_sayısı=100, deneme=10000, gözlenen_uzunluk=2) for rr in r]
 posterior = L*prior
 posterior /= sum(posterior)
 

@@ -1,0 +1,10 @@
+# python libraries needed to run the calculations
+ipykernel
+numpy
+pandas
+scipy
+matplotlib
+plotly
+scikit-learn
+mysql-connector-python>=8.0
+jupyter
