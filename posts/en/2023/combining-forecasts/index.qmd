@@ -22,7 +22,7 @@ For the rest of this post, we will assume that a set of forecasts is given. We d
 
 The Simple Mean averages the forecasts with equal weight. However, if we have reason to trust some forecasters more than others, we can assign a greater weight to them so that they have a greater influence on the result. Usually, these weights are set using past data by evaluating the error of each forecaster. Forecasters with minor errors would carry greater weight in the result.
 
-One such formula, the **Minimum Variance** method (also called the *Inverse-Variance Weighting* method), was proposed by Bates and Granger in 1969. It weights each forecaster according to its past precision, that is, the inverse of its variance. The variance of a forecaster can be estimated as the mean of the squares of its past errors.
+One such formula, the **Minimum Variance** method (also called the *Inverse-Variance Weighting* method), was proposed by Bates and Granger in 1969[^2]. It weights each forecaster according to its past precision, that is, the inverse of its variance. The variance of a forecaster can be estimated as the mean of the squares of its past errors.
 
 It turns out that, when we average forecasts using the inverses of variances, the variance of the result is minimized; hence the name of the method. The same method is also used in portfolio theory to set up a stock portfolio that minimizes risk.
 
