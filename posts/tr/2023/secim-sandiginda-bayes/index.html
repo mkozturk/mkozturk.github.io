@@ -274,7 +274,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">101</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">100</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">10000</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>plt.plot(r, L)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"RTE oy oranı"</span>)</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Olabilirlik"</span>)</span>
@@ -312,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>prior <span class="op">/=</span> <span class="bu">sum</span>(prior) <span class="co"># normalizasyon</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># her oy oranı için olabilirliği hesapla</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">100</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">10000</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># her oy oranı için sonsal olasılığı hesapla</span></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">=</span> L<span class="op">*</span>prior</span>
@@ -377,7 +377,7 @@ Ortalama değer:  0.17
 <span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"%90 yoğunluk aralığı: </span><span class="sc">{</span>r[(<span class="fl">0.05</span><span class="op">&lt;</span>np.cumsum(posterior))][<span class="dv">0</span>]<span class="sc">}</span><span class="ss">  - </span><span class="sc">{</span>r[(np.cumsum(posterior)<span class="op">&lt;</span><span class="fl">0.95</span>)][<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>%90 yoğunluk aralığı: 0.07  - 0.24</code></pre>
+<pre><code>%90 yoğunluk aralığı: 0.08  - 0.24</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -401,12 +401,12 @@ Ortalama değer:  0.17
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prior1 <span class="op">=</span> np.ones_like(r)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>prior1 <span class="op">/=</span> <span class="bu">sum</span>(prior1)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>L1 <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">100</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">3</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>L1 <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">10000</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">3</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>posterior1 <span class="op">=</span> L1<span class="op">*</span>prior1</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>posterior1 <span class="op">/=</span> <span class="bu">sum</span>(posterior1) <span class="co"># normalizasyon</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>prior2 <span class="op">=</span> posterior1</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>L2 <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">100</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>L2 <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">10000</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>posterior2 <span class="op">=</span> L2<span class="op">*</span>prior2</span>
 <span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>posterior2 <span class="op">/=</span> <span class="bu">sum</span>(posterior2) <span class="co"># normalizasyon</span></span>
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
@@ -447,7 +447,7 @@ Ortalama değer:  0.17
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prior <span class="op">=</span> r<span class="op">**</span><span class="dv">81</span> <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>r)<span class="op">**</span><span class="dv">276</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>prior <span class="op">/=</span> <span class="bu">sum</span>(prior)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">100</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> [olabilirlik(rr, oy_sayısı<span class="op">=</span><span class="dv">100</span>, deneme<span class="op">=</span><span class="dv">10000</span>, gözlenen_uzunluk<span class="op">=</span><span class="dv">2</span>) <span class="cf">for</span> rr <span class="kw">in</span> r]</span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">=</span> L<span class="op">*</span>prior</span>
 <span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>posterior <span class="op">/=</span> <span class="bu">sum</span>(posterior)</span>
 <span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
