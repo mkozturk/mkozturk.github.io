@@ -1,34 +1,40 @@
 ---
 title: "Scikit-learn ile Kendi Tahminleyicilerimizi Yazmak"
-description: "Kendi regresyon ve sınıflandırma algoritmalarınızı scikit-learn yapısına getirin"
+description: "Algoritmalarınızı scikit-learn yapısına uygun olarak yazın ve bu zengin kütüphanenin gücünü tam olarak kullanın"
 author: "Kaan Öztürk"
-date: "11/09/2023"
+date: "11/25/2023"
 toc: true
-draft: true
+image: scikit-learn-logo.png
 format: 
   html:
-    code-fold: true
+    code-fold: false
 categories:
     - data science
-    - programming
 ---
 
-Temel yapay öğrenme algoritmalarının vazgeçilmez araçlarından biri *scikit-learn* Python kütüphanesidir. 
-Bu kütüphane regresyon, sınıflandırma, öbekleme ve daha bir çok yapay öğrenme işi için hazırlanmış bir çok algoritma barındırır. 
+Python'la yapay öğrenme modelleri çalıştıran her veri bilimcinin aşina olduğu bir kütüphanedir [`scikit-learn`](https://scikit-learn.org/stable/). Son derece zengin bir algoritma koleksiyonunu barındırır. Çoğu zaman o algoritmaları olduğu gibi kullanmak yeterlidir.
 
-*scikit-learn* içindeki her algoritma bir *estimator* sınıfı nesne olarak kodlanmıştır. Regresyon, sınıflayıcı, ve diğer tahminleyiciler temel `BaseEstimator` sınıfından özellikler miras alan türetilmiş sınıflardır.
+Ama bazen çok özelleşmiş bir algoritmaya ihtiyaç duyabilirsiniz. Bunu `scikit-learn` arayüzüne uygun şekilde yazarsanız, kütüphanenin sağladığı birçok başka kolaylığa da rahatça erişebilirsiniz.
 
-Tahminleyicinin veriyle eğitilmesi, `fit()` metodu ile sağlanır. Buradaki eğitim, sözgelişi, regresyon parametrelerini belirlemek, PCA bileşenlerini hesaplamak, veya bir ölçekleme yapmakta kullanılacak parametreleri bulmak olabilir.
+Bu yazıda, kendi regresyon veya sınıflandırıcı modelinizi nasıl `scikit-learn` modülünün parçasıymış gibi yazabileceğinizi anlatacağım. Önce, `scikit-learn` sisteminin nasıl kullanıldığına bir bakalım.
 
-Bir kestirim yapmak için kullanılan (predictor) tahminleyicilerin `predict()` metodu vardır. Örneğin:
+# `scikit-learn` arayüzü
+
+Aşina olduğumuz `scikit-learn` yapısında üç aşama vardır: Tahminleyici nesnesini yaratmak, veriyle eğitmek, sonra eğitilmiş modelden tahmin üretmek. Mesela:
+
 ```python
-knn = KNeighborsClassifier()
-knn.fit(X_train, y_train)
-y_pred = knn.predict(X_test)
+knn = KNeighborsClassifier()  # (1)
+knn.fit(X_train, y_train)     # (2)
+y_pred = knn.predict(X_test)  # (3)
 ```
-Sınıflayıcı (classifier) tahminleyicilerde `predict_proba()` veye `decision_function()` metodları bulunabilir. Bunlar her bir tahmin sınıfı için evet/hayır cevabı yerine daha "yumuşak" puanlar sağlarlar. Birincisi, her veri noktasında, mümkün olan her tahmin sınıfının olasılığını bir matris olarak verir. Satırların toplamı 1'e eşit olmalıdır. Her algoritmada tanımlanması mümkün olmayabilir. İkincisi ise her tahmin sınıfı için bir puan verir; en yüksek olan tercih edilir. Olasılık değildir, ve fonksiyon değerleri sadece karşılaştırma için kullanılır.
 
-Bazı algoritmalar veriyi dönüştürme amaçlı kullanılırlar (transformer). Bu tür tahminleyicilerde `transform()` metodları bulunur.
+1. `scikit-learn` içindeki her algoritma bir *estimator* nesne sınıfı olarak kodlanmıştır. Regresyon, sınıflayıcı ve diğer tahminleyici türlerinin hepsi temel `BaseEstimator` sınıfından türetilmiştir. 
+2. Eğitme işi `fit()` metodu ile sağlanır. Buradaki eğitim, sözgelişi, regresyon parametrelerini belirlemek, PCA bileşenlerini hesaplamak, veya bir ölçekleme yapmakta kullanılacak parametreleri bulmak olabilir.
+3. Eğitilen modeli kullanarak yeni veri ile kestirim yapmak için `predict()` metodu kullanılır. 
+
+Bunlar en temel işlemler. Bunların yanı sıra, sınıflayıcı (classifier) tahminleyicilerde `predict_proba()` veye `decision_function()` metodları bulunabilir. Bunlar her bir tahmin sınıfı için evet/hayır cevabı yerine daha "yumuşak" puanlar sağlarlar. Ayrıca regresyon tahminleyicilerinde `score()` gibi başarı ölçüsü veren metotlar olabilir.
+
+Bazı algoritmalar ise veriyi dönüştürme amaçlı kullanılırlar. Örneğin ölçekleme veya PCA işlemleri. Bu tür tahminleyicilerde `transform()` metodu bulunur.
 
 ```Python
 scaler = StandardScaler()
@@ -36,156 +42,170 @@ scaler.fit(X_train)
 X_trf = scaler.transform(X_train)
 ```
 
-Genelde yapay öğrenme uygulamalarında çeşitli tahminleyiciler birbirlerinin ardı sıra eklenerek kullanılırlar. *Scikit-learn* bunu otomatikleştirmek için bir `Pipeline` (veri hattı) nesnesi kullanır. Bir `Pipeline` nesnesinin kendine ait `fit()` ve `predict()` metodları bulunur, böylece kendi başına bir tahminleyici imiş gibi kullanılabilir.
+Bir çok durumda birkaç tahminleyici ve dönüştürücü birbirlerinin ardı sıra eklenerek kullanılırlar. `scikit-learn` bunu otomatikleştirmek için bir `Pipeline` (veri hattı) nesnesi sağlar. Bir `Pipeline` nesnesinin kendine ait `fit()` ve `predict()` metodları bulunur, böylece kendi başına bir tahminleyici imiş gibi kullanılabilir.
+
+Örneğin, aşağıdaki adımlar, verinin önce ölçeklenip sonra k-NN ile sınıflandırıldığı bir işlem sağlar.
 
 ```Python
 pipe = Pipeline(steps=[('scale', StandardScaler), ('knn', knn)])
 pipe.fit(X_train, y_train)
 y_pred = pipe.predict(X_test)
 ```
+Yeni bir tahminleyici yazacağımız zaman, burada özetlenen arayüzle tutarlı olmasını isteriz. `scikit-learn` bize bunun için bir standart ve ona uymak için kullanılacak araçlar sunuyor.
 
-*Scikit-learn* her ne kadar zengin olsa da, veri bilimi uygulamalarında bazen başka tahminleyiciler kullanmak gerekebilir. Sıfırdan yeni bir algoritma yazılması, veya başka bir yazılım kütüphanesinden bir algoritma kullanılması gerekebilir. Yeni bir algoritma, `BaseEstimator` sınıfından türetilen bir tahminleyici ile oluşturulabilir. Algoritmik ayrıntılar için nesnenin `fit()` metodu tekrar tanımlanır, özel amaçlı metodlar eklenebilir. Bunu yaparken, *scikit-learn* API tutarlılığı için bazı standartlar oluşmuştur. Eğer yeni algoritmaları  bu standartlara uygun şekilde hazırlarsakveri hattı oluşturma, çapraz doğrulama (cross-validation), parametre uzayı tarama (grid search) gibi üst seviye işlemleri pürüzsüzce yapmamız mümkün olur. Bu yazıda bunu yapmanın yollarını göreceğiz. 
+::: {.callout-note title="Resmi belgeler"}
+Buradaki örnekler ve açıklamalar kaçınılmaz olarak eksik kalacak. Tam bir başvuru kaynağı olarak resmi dökümantasyona ([Developing scikit-learn estimators](https://scikit-learn.org/stable/developers/develop.html)) bakabilirsiniz.
+:::
 
-**Notlar**
+# Neden?
 
-* **Resmi belgeler**. Buradaki örnekler ve açıklamalar kaçınılmaz olarak eksik kalacak. Tam bir başvuru kaynağı olarak resmi dökümantasyona ([Developing scikit-learn estimators](https://scikit-learn.org/stable/developers/develop.html)) bakabilirsiniz.
+Neden tahminleyici algoritmamızı `scikit-learn` yapısına uydurmak için uğraşalım? Eğitim ve kestirim adımlarını iki ayrı fonksiyon halinde tutmakla, veya tek bir nesne sınıfı yaratıp içine `fit()` ve `predict()` metotlarını koymakla niye yetinmeyelim? Haklı sorular.
 
-* **Kodunuzu belgelemek -- ÇOK ÖNEMLİ!** Tahminleyicileri yazarken içinde bol miktarda docstringler kullanarak girdiler, çıktılar ve örnekler hakkında yeterli bilgi vermeniz şart. Bunu ihmal ederseniz tahminleyicinizin ne yaptığını sizden başka kimse anlamaz. Bir süre sonra kendiniz de anlamaz olursunuz. Bu iş sona bırakılırsa yapılmadan kalır.
+`scikit-learn` standardına uymanın en bariz yararı, kütüphanenin sunduğu üst seviye araçları kolayca kullanabilme imkânı. Örneğin, algoritmanız önceden verilerin ölçeklenmesini gerektiriyorsa, bunu kendiniz kodlamak zorunda kalmazsınız. `scikit-learn` içinde bulunan dönüştürücü ile beraber bir pipeline kurabilirsiniz.
 
-* **Kod kalıpları**. Yeni tahminleyiciler geliştirirken örnek alabileceğiniz [kod kalıpları mevcut](https://github.com/scikit-learn-contrib/project-template). Sıfırdan başlamak yerine bu kalıplar içinden ihtiyaç duyduklarınızı alıp içini uygun şekilde doldurabilirsiniz. Kod kalıpları uygun belgeleme için de örnekler veriyor.
+Keza `scikit-learn` içindeki çapraz doğrulama (cross-validation), parametre uzayı tarama (grid search) gibi işlemleri de kolayca yapabilirsiniz. Otomatik model seçme işlemlerine kendi algoritmanızı pürüzsüz bir şekilde entegre edebilirsiniz.
 
-* **Tekerleği baştan icat etmeyin**. İstediğiniz dönüşümü yapabilen bir *scikit-learn* fonksiyonu varsa onu kullanın. Dökümantasyona aşina olun.
-* **Genel amaçlı tahminleyiciler yazın**. Yazdığınız kod belli bir veri kümesine özgü kalmasın. Öznitelik (feature) seçimi gibi işlemleri ya önceden yapın, ya da veri hattının başında ayrı bir işlem olarak koyun. Bir model kütüphanesi oluşturduğunuzu düşünerek, bambaşka bir bağlam ve problemde de kullanılabilecek bir tahminleyici oluşturun.
-* **Numpy kullanın**. *scikit-learn* algoritmaları pandas veri tabloları alabilir, ama bunları kendi içinde Numpy dizilerine dönüştürür. Siz de tahminleyicilerinizi kodlarken sadece Numpy yapılarını kullanın.
+Üstelik, içinde `fit()` ve `predict()` metotları bulunan bir nesne sınıfı yaptıktan sonra, bunu `scikit-learn` standardına uygun hale getirmenin zahmetsiz bir iş olduğunu göreceğiz. Yani az bir çabayla, büyük bir güç elde ediyoruz.
 
+::: {.callout-tip title="Kod kalıpları"}
+Yeni tahminleyiciler geliştirirken örnek alabileceğiniz [kod kalıpları mevcut](https://github.com/scikit-learn-contrib/project-template). Sıfırdan başlamak yerine uygun bir kalıbı alıp içini uygun şekilde doldurabilirsiniz.
+:::
+
+::: {.callout-warning}
+# Tekerleği baştan icat etmeyin
+İstediğiniz dönüşümü yapabilen bir `scikit-learn` fonksiyonu varsa onu kullanın. Kütüphanenin dökümantasyonuna göz gezdirin, aşina olun.
+:::
 
 # Kestirim
 
-Örnek olarak, bir regresyon kestirimi yapan bir sınıf yaratalım. Algoritmik ayrıntılara boğulmamak için basitçe, tahmin olarak eğitim kümesinin ortalamasını veya ortancasını veren bir kestirici olsun.
+İlk örnek olarak, regresyon kestirimi yapan bir sınıf yaratalım. Algoritmik ayrıntılara boğulmamak için basit tutalım: Tahmin olarak eğitim kümesinin ortalamasını veya ortancasını veren bir kestirici olsun.
 
 
-```python
+```{python}
+#| code-fold: false
 import numpy as np
 from sklearn.base import BaseEstimator, RegressorMixin
 from sklearn.utils import check_X_y, check_array
 from sklearn.utils.validation import check_is_fitted
 
-class SimpleRegressor(BaseEstimator, RegressorMixin):  # (1)
-    def __init__(self, method="mean"):    # (2)
+class SimpleRegressor(BaseEstimator, RegressorMixin):   # (1)
+    def __init__(self, method="mean"):                  # (2)
         self.method = method
         
-    def fit(self, X, y):      # (3)
-        if self.method not in ["mean", "median"]:   # (4)
+    def fit(self, X, y):                                # (3)
+        if self.method not in ["mean", "median"]:       # (4)
             raise ValueError("method must be 'mean' or 'median'")
         X, y = check_X_y(X, y)
         if self.method=="mean":
-            self.coef_ = np.mean(y)  # (5)
+            self.coef_ = np.mean(y)                     
         if self.method=="median":
-            self.coef_ = np.median(y)
-        return self  # (6)
+            self.coef_ = np.median(y)                   # (5)
+        self.n_features_in_ = X.shape[1]
+        return self                                     # (6)
     
     def predict(self, X):
-        X = check_array(X) # (7)
+        X = check_array(X)                              # (7)
         check_is_fitted(self, attributes=["coef_"])
-        return np.ones(X.shape[0])*self.coef_  # (8)
+        return np.ones(X.shape[0])*self.coef_           # (8)
 ```
 
 Bunu satır satır açıklayalım.
 
 **(1) Miras alınan sınıflar**  
-Kestirici sınıfımıza `SimpleRegressor` ismi veriyoruz. Bu sınıf `BaseEstimator` sınıfında tanımlanmış elemanları miras alıyor. Ayrıca `RegressorMixin` sınıfını ebeveyn olarak eklemek hem bunun bir regresyon kestiricisi olarak tanınmasını, hem de `score()` metodunun miras alınmasını sağlıyor.
+Kestirici sınıfımıza `SimpleRegressor` adını veriyoruz. Bu sınıf `BaseEstimator` sınıfında tanımlanmış elemanları miras alıyor. Ayrıca `RegressorMixin` sınıfını ebeveyn olarak ekliyoruz. Böylece hem bunun bir regresyon kestiricisi olarak tanınmasını, hem de `score()` metodunun miras alınmasını sağlıyor.
 
 **(2) Başlatıcı**   
-Sınıf inşacısının (constructor) basit olması istenir. Kestiriciyi çağırırken verilen algoritmayla ilgili hiperparametreleri burada veririz. Dikkat edilecek noktalar:
+Sınıf inşacısının (constructor) basit olması istenir. Kestiriciyi çağırırken, algoritmayla ilgili hiperparametreleri burada veririz. 
+
+Dikkat edilecek noktalar:
+
 * Her parametre, kendisiyle tıpatıp aynı isimde bir nesne değişkenine dönüştürülmelidir (`method` ve `self.method` gibi). Tahminleyicilerin `get_param()` ve `set_param()` metodlarının doğru çalışması buna bağlıdır.
-* Bütün parametrelerin varsayılan (default) değerleri olmalıdır. Bir tahminleyici hiç bir paraetre verilmeden de makul bir şekilde çalışabilmeli. Örneğin `reg = SimpleRegressor()`.
-* `__init__` içinde herhangi bir hata arama veya doğrulama işlemi bulunmamalıdır. Bu tür işlemler `fit()` içinde yapılmalıdır. Bunun nedeni, tahminleyicinin parametrelerinin `set_param()` metoduyla da (mesela grid search işleminde) aynı şekilde belirlenebilir olması ihtiyacıdır.
+* Bütün parametrelerin varsayılan (default) değerleri olmalıdır. Bir tahminleyici hiç bir parametre verilmeden de makul bir şekilde çalışabilmeli. Örneğin `reg = SimpleRegressor()`.
+* Veri denetlemesi veya hata düzeltmesi gibi işlemler sadece `fit()` içinde yapılmalıdır. `__init__` içinde atama dışında bir işlem bulunmamalıdır. Aksi takdirde, hiperparametre ataması için kullanılan `set_param()` gibi alternatif yollar (mesela grid search işleminde) doğru çalışmaz.
 
 **(3) fit() metodu**  
-    Bu metodun her zaman `X` (veri matrisi) ve `y` (hedef değer vektörü) alması gerekir. Gözetimsiz (unsupervised) algoritmalarda `y` gerekmese de, API tutarlılığı açısından yine de kullanılır, ama varsayılan değer olarak `None` atanır: `def fit(self, X, y=None)`.
+Bu metodun her zaman `X` (veri matrisi) ve `y` (hedef değer vektörü) alması gerekir. 
+
+::: {.callout-note }
+Gözetimsiz (unsupervised) algoritmalarda `y` alınması gerekmez, yine de API tutarlılığı açısından parametre listesinde bulunur,  varsayılan değer olarak `None` atanır: `def fit(self, X, y=None)`.
+:::
 
 **(4) Doğrulama kontrolleri**  
-Hiperparametrelerin doğruluğu, verilerin uygunluğu vb. testler burada yapılmalıdır. Bunun için `sklearn.utils` modülünde çeşitli fonksiyonlar mevcut. Burada `check_X_y` ile verilerin uygun biçim ve boyutta olduğunu kontrol ediyoruz.
+Hiperparametrelerin doğru aralıkta olması, verilerin uygun biçimde olması gibi testler burada yapılmalıdır. Bunun için `sklearn.utils` modülünde çeşitli fonksiyonlar mevcut. Burada `check_X_y` ile verilerin uygun biçim ve boyutta olduğunu kontrol ediyoruz.
 
-**(5) Model parametreleri**  
-Hedef değişkenlerin ortalaması veya ortancasını `coef_` isimli bir nesne değişkenine atıyoruz. Model parametreleri sonlarında bir alt çizgiyle isimlendirilir. Bunlar algoritmaya bağlı oldukları için standart isimleri yoktur. Yine de, benzer algoritmaların kodlarındaki parametre isimlerini tercih etmek, kullanıcıları şaşırtmaktan kaçınmak adına yararlı olur.
+::: {.callout-tip}
+# Numpy kullanın
+`scikit-learn` algoritmaları pandas veri tabloları alabilir, ama bunları kendi içinde Numpy dizilerine dönüştürür. Siz de tahminleyicilerinizi kodlarken sadece Numpy yapılarını kullanın.
+:::
 
-**(6) fit() bir tahminleyici döndürür**  
-`fit()` metodu her zaman `self` döndürmelidir. Böylece `y_pred = SimpleRegressor().fit(X_train, y_train).predict(X_test)` gibi metot zincirleri kurmak mümkün olur.
+**(5) Model parametreleri** 
+Seçilen yönteme göre, hedef vektörü `y`'nin ortalama veya ortancasını hesaplayıp, `coef_` isimli bir nesne değişkeninde tutuyoruz. Bu isim istediğiniz gibi seçilebilir. Birçok regresyon tahmincisi `coef_` kullandığı için biz de burada aynısını kullandık.
 
-**(7) predict() metodu doğrulama kontrolleri**  
+Veri kullanılarak hesaplanan değişkenlerin alt çizgiyle bitmesi gerekir. 
+
+`n_features_in_` değişkeni veride kaç öznitelik olduğunun hesabını tutmamıza yarar. Kestirme için kullanılan verinin de aynı sayıda özniteliği olduğunu kontrol etmek için kullanılır.
+
+**(6) `fit()` bir tahminleyici döndürür**  
+`fit()` metodu her zaman `self` döndürmelidir. Böylece 
+
+`y_pred = SimpleRegressor().fit(X_train, y_train).predict(X_test)` 
+
+gibi metot zincirleri kurmak mümkün olur.
+
+**(7) Kestirim aşaması kontrolleri**  
 `check_array()` fonksiyonu girdinin uygun biçimde bir veri yapısı olup olmadığını denetler.
 
-Model eğitilmeden (`fit()` çalıştırılmadan) kestirim yapmak anlamsız olacağı için `check_is_fitted()` fonksiyonuyla bunun denetimini yaparız. Bu fonksiyon basitçe, sonunda altçizgi (`"_"`) bulunan nesne değişkenleri olup olmadığını kontrol eder. Fonksiyonun `attributes` parametresi ile belli değişkenlerin mevcut olup olmadığının denetlemesini sağlayabiliriz.
+Tahminleyicinin `fit()` metodu bir kere çalıştırılıp model eğitilmeden kestirim yapmak anlamsız olacaktır. `check_is_fitted()` fonksiyonuyla bunun denetimini yaparız. Fonksiyon buradaki haliyle `coef_` değişkeninin mevcut olup olmadığına bakar. `attributes` parametresini kullanmasaydık, altçizgi (`_`) ile biten herhangi bir değişken olup olmadığını kontrol ederdi.
 
-**(8) predict() bir dizi (array) döndürür**  
+**(8) `predict()` bir dizi (array) döndürür**  
 Model tahmini için gerekli işlemler yapıldıktan sonra, test verisindeki satır sayısı uzunluğunda bir boyutlu bir dizi (array) elde ederiz.
 
-Şimdi bu kestiriciyi diğer *scikit-learn* kestiricileri gibi kullanabiliriz.
+::: {.callout-tip}
+# Genel amaçlı tahminleyiciler yazın
+Özel bir probleme odaklanıyor olsanız da, çözümün işe yarar en genel halinin ne olabileceğini düşünün ve tahminleyicinizi ona göre yazın. Tahminleyicinizi bambaşka bir bağlam ve problemde de kullanılabilecek şekilde tasarlayın. Yazdığınız kod, veri hakkında çok fazla varsayıma bağlı olmasın. Veri biçimlendirme işlemlerini tahminleyiciye koymayın. Ya önceden yapın, ya da veri akış hattının başına ayrı bir işlem olarak koyun.
+:::
 
+Şimdi bu kestiriciyi diğer `scikit-learn` kestiricileri gibi kullanabiliriz. Önce rastgele veri üretelim:
 
-```python
+```{python}
+np.random.seed(29101923)
 X_train, X_test = np.random.rand(10,2), np.random.rand(5,2)
 y_train, y_test = np.random.randn(10), np.random.randn(5)
-```
-
-
-```python
 y_train.mean(), np.median(y_train)
 ```
 
+Basit regresyon tahminleyicimiz, eğitim kümesinin hedef değişkeninin ortalaması hesaplayacak ve her yeni kestirim için aynı değeri verecek:
 
-
-
-    (-0.2920551681992903, -0.442222217442214)
-
-
-
-
-```python
+```{python}
 SimpleRegressor().fit(X_train, y_train).predict(X_test)
 ```
 
+Tahminleyicinin ortanca değer kullanmasını istersek:
 
-
-
-    array([-0.29205517, -0.29205517, -0.29205517, -0.29205517, -0.29205517])
-
-
-
-
-```python
+```{python}
 SimpleRegressor(method="median").fit(X_train, y_train).predict(X_test)
 ```
 
 
+`RegressorMixin` sınıfından miras alınan `score` metodunu kullanarak, kestirimimizin $R^2$ puanını hesaplatabiliriz.
 
-
-    array([-0.44222222, -0.44222222, -0.44222222, -0.44222222, -0.44222222])
-
-
-
-`RegressorMixin` sınıfından miras alınan `score` metodu ile $R^2$ puanı elde edilebilir.
-
-
-```python
+```{python}
 SimpleRegressor().fit(X_train, y_train).score(X_test,y_test)
 ```
 
+# Standartlara uyum kontrolü
 
+Yazdığımız tahminleyicinin `scikit-learn` standartlarına uyup uymadığını kontrol etmek için `utils.estimator_checks.check_estimator` fonksiyonunu kullanırız.
 
+`check_estimator`, yaptığı kontrollerin yanı sıra, mevcut veri kümelerinde tahminleyicimizin ne kadar isabetli olduğunu da test eder. Ancak, mecvut haliyle kestiricimiz testi geçemiyor:
 
-    -0.2305096884408231
+```{python}
+#| eval: false
+from sklearn.utils.estimator_checks import check_estimator
+check_estimator(SimpleRegressor())
+```
 
-
-
-Yarattığımız tahminleyicilerin *scikit-learn* standartlarına uyup uymadığını kontrol etmek için `utils.estimator_checks.check_estimator` fonksiyonu kullanılabilir.
-
-`check_estimator` başka şeylerin yanında, mevcut veri kümelerini kullanarak tahminleyicinin ne kadar isabetli olduğunu da test eder. Ancak, yukarıdaki haliyle çalıştırdığımızda kestiricimiz testi geçemiyor:
-
-```Python
-> from sklearn.utils.estimator_checks import check_estimator
-> check_estimator(SimpleRegressor())
+```
 AssertionError                            Traceback (most recent call last)
 ...
    2277     if not regressor._get_tags()["poor_score"]:
@@ -198,10 +218,10 @@ AssertionError:
 
 Bunun nedeni, çok basit bir kestirici yaratmış olmamız ve hatasının yüksek oluşu.
 
-Kötü tahmin yapan bir kestiriciyi yine de kabul ettirmek mümkün. Bunun için *estimator tag* özelliklerini kullanırız. Bu etiketlerin ne olduklarının açıklaması ve tam bir listesi için [belgelere bakabilirsiniz](https://scikit-learn.org/stable/developers/develop.html#estimator-tags). Buradaki amacımız için *poor_score* etiketini `True` değeriyle kestiricimize eklemeliyiz. Bunun için kestirici sınıfına `_more_tags` isimli bir metod eklemek gerekli.
+Kötü tahmin yapan bir kestiriciyi `scikit-learn`'e kabul ettirmek mümkün. Bunun için *estimator tag* özelliklerini kullanırız. Bu etiketlerin ne olduklarının açıklaması ve tam bir listesi için [belgelere bakabilirsiniz](https://scikit-learn.org/stable/developers/develop.html#estimator-tags). Buradaki amacımız için *poor_score* etiketini `True` değeriyle kestiricimize eklemeliyiz. Bunun için kestirici sınıfına `_more_tags` isimli bir metod eklemek gerekli.
 
 
-```python
+```{python}
 from sklearn.utils.estimator_checks import check_estimator
 def _more_tags(self):
     return {'poor_score': True}
@@ -209,21 +229,17 @@ SimpleRegressor._more_tags = _more_tags
 check_estimator(SimpleRegressor())
 ```
 
-    /home/kaan/anaconda3/envs/pm/lib/python3.8/site-packages/sklearn/utils/estimator_checks.py:2979: FutureWarning: As of scikit-learn 0.23, estimators should expose a n_features_in_ attribute, unless the 'no_validation' tag is True. This attribute should be equal to the number of features passed to the fit method. An error will be raised from version 0.25 when calling check_estimator(). See SLEP010: https://scikit-learn-enhancement-proposals.readthedocs.io/en/latest/slep010/proposal.html
-      warnings.warn(
-
-
-Burada ileriye dönük bir uyarı mesajı çıkıyor, ama hiç bir hata mesajı almıyoruz. Tahminleyicimiz testleri geçiyor.
-
-Çıkan uyarıyı ortadan kaldırmak için `fit()` içine `self.n_features_in_ = X.shape[1]` eklemek yeterli.
+Şimdi hiç bir hata mesajı almadık. Tahminleyicimiz testleri geçti.
 
 # Sınıflandırma
 
+Şimdi de basit bir sınıflandırıcı (classifier) yaratalım. Her nokta için tahmin edilen sııf, ona en yakın komşusunun sınıfı olsun (1-NN algoritması).
 
-Bir sınıflandırma tahminleyicisi örneği olarak, [project-template](https://github.com/scikit-learn-contrib/project-template) reposunda verilen kod kalıbını, küçük değişikliklerle kullanalım:
+Proje kalıpları içeren [project-template](https://github.com/scikit-learn-contrib/project-template) reposunda tam da bu işi yapan bir kod kalıbı mevcut. Küçük değişikliklerle kullanalım:
 
 
-```python
+```{python}
+#| code-fold: show
 import numpy as np
 from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.utils import check_X_y, check_array
@@ -314,25 +330,27 @@ class TemplateClassifier(BaseEstimator,ClassifierMixin):
         return self.y_[closest]
 ```
 
-Bu örnekte öncelikle, ayrıntılı belgelemenin nasıl yapılması gerektiğini görüyoruz. Sınıf seviyesi değişkenlerin ne tip olduğu ve ne anlama geldiği, nesne değişkenlerinin (attributes) listesi ve açıklaması, tahminleyicinin kullanımına bir örnek, ayrıca `fit()` ve `predict()` metodlarının aldığı girdiler ve döndürdüğü değerlerin açıklaması.
+Bu örnek, regresyon için hazırladığımız örnekten daha karmaşık değil. Uzunluğu, daha ayrıntılı açıklamalar içermesinden kaynaklanıyor. Sizin de kendi sınıflayıcılarınızı yazarken, bu örnekte olduğu gibi, değişkenlerin ne tip olduğu ve ne anlama geldiği, nesne değişkenlerinin (attributes) listesi ve açıklaması, tahminleyicinin kullanımına örnekler, ayrıca `fit()` ve `predict()` metodlarının aldığı girdilerin ve döndürdüğü değerlerin açıklamaları gibi bilgileri koymanız gerekir.
 
-Sınıflandırıcılarda hedef değerler tam sayı veya dize (string) olmalı. Bunların listesi, sıralanmış olarak, nesne içinde `classes_` isimli bir dizide saklanmalıdır. `utils.multiclass.unique_labels()` fonksiyonu gözlenen verilerden hedef değerleri almayı sağlar.
+Sınıflandırıcılarda hedef değerler ayrık kategorilerdir. Bunlar tam sayı veya dize (string) olarak kullanılmalı. Kategori listesi, `classes_` isimli sıralanmış bir dizi olarak nesne değişkeni olarak saklanmalıdır.
 
-Buradaki basit sınıflandırıcı (1-NN) verilen bir tahmin noktasına, eğitim kümesindeki en yakın komşunun değerini atar. Bu yüzden eğitim kümesi de tahminleyici içinde erişilebilir olmalıdır. Bu yüzden `fit()` içinde `X_` ve `y_` nesne değişkenleri yaratılır ve bunlar daha sonra `predict()` içinde tahmin yapmak için kullanılırlar.
+Verilerin kategorilerini baştan bilmiyorsanız, `utils.multiclass.unique_labels()` fonksiyonu ile bunları verilerden alabilirsiniz.
+
+Buradaki basit sınıflandırıcı (1-NN) verilen bir tahmin noktasına, eğitim kümesindeki en yakın komşunun değerini atar. Bu yüzden eğitim kümesi kestirim (`predict()`) adımında erişilebilir olmalıdır. Bu yüzden `fit()` içinde `X_` ve `y_` nesne değişkenleri yaratılır ve bunlar daha sonra `predict()` içinde tahmin yapmak için kullanılırlar.
 
 Algoritmanın özelliğine bağlı olarak, sınıflandırıcıya `decision_function()`, `predict_proba()` ve `predict_log_proba()` metodları da eklenebilir.
 
 Sınıflandırıcının testlerini yapalım:
 
 
-```python
+```{python}
 check_estimator(TemplateClassifier())
 ```
 
 Kullanım örneği:
 
 
-```python
+```{python}
 X = [[0, 0], [1, 1]]
 y = [0, 1]
 clf = TemplateClassifier()
@@ -340,48 +358,28 @@ clf.fit(X, y)
 ```
 
 
-
-
-    TemplateClassifier()
-
-
-
-
-```python
+```{python}
 X_test = [[0.2,0.2], [0.4,0.4], [0.6, 0.6], [0.8, 0.8]]
 y_test = [0, 1, 1, 1]
 clf.predict(X_test)
 ```
 
-
-
-
-    array([0, 0, 1, 1])
-
-
-
 Modelin doğruluğunu (accuracy) bulmak için `score()` metodunu kullanabiliriz.
 
-
-```python
+```{python}
 clf.score(X_test, y_test)
 ```
 
 
 
-
-    0.75
-
-
-
 # Veri dönüşümü
 
-Bir dönüştürücü (transformer) veri kümesini alıp başka bir biçime çevirir. Yine bir `fit()` metodu vardır, ama ardından `predict()` yerine `transform()` yapılır.
+*Dönüştürücü* (transformer) bir veri kümesini alıp başka bir biçime çevirir. Yine bir `fit()` metodu vardır, ama ardından `predict()` yerine `transform()` yapılır.
 
-Söz gelişi, verilerin hareketli ortalamasını veren bir dönüştürücü hazırlayalım. Böyle bir işlem için bir dönüştürücü yazmak aşırı gelebilir, ama örneğin verilere ön işleme yaparken uyguladığımız adımlardan biri hareketli ortalama almaksa, böyle bir dönüştürücü her şeyi tek bir pipeline içine koymamızı sağlar.
+## Hareketli ortalama
+Örnek olarak, verilerin hareketli ortalamasını veren bir dönüştürücü hazırlayalım. Böyle bir işlem için bir dönüştürücü yazmak aşırı gelebilir, ama yararlı olacağı durumlar vardır. Sözgelişi, modelin eğitim kümesini hazırlarken bir adımda hareketli ortalama alıyor olabiliriz. Önceden bu işlemi bir dönüştürücü haline getirirsek, bütün eğitim ve kestirim sürecini bir pipeline içine koymamız, çapraz doğrulamaları aksamadan yapmamız mümkün olur.
 
-
-```python
+```{python}
 import numpy as np
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils import check_array
@@ -410,76 +408,27 @@ class RollingMean(BaseEstimator, TransformerMixin):
 
 Bu örnekte `fit()` herhangi bir işlem yapmıyor, sadece girdi için doğruluk denetimi yapıyor ve `n_features_in_` nesne özelliğini yaratıyor. Daha sonra `transform()` çağrıldığında bu değişkenin var olup olmadığı denetleniyor.
 
-
-```python
+Üç değişkenli bir rastgele yürüyüş verisi üretelim:
+```{python}
+np.random.seed(29101923)
 X = np.cumsum(np.random.rand(30).reshape(3,-1).T, axis=0)
 X
 ```
 
-
-
-
-    array([[0.00843071, 0.61648492, 0.13415799],
-           [0.61083489, 0.73069736, 0.18863954],
-           [0.85128031, 0.7886046 , 0.84206099],
-           [1.07219443, 1.64541345, 1.7394278 ],
-           [1.0796034 , 2.41794475, 2.40102425],
-           [1.56398989, 2.64766477, 2.51030871],
-           [2.34401511, 3.46509118, 3.12190718],
-           [3.27252464, 4.15476667, 3.38814564],
-           [3.62663417, 4.83763398, 4.10634491],
-           [3.99235604, 5.2239653 , 5.07476445]])
-
-
-
-
-```python
+```{python}
 RollingMean(n=3).fit(X).transform(X)
 ```
 
+Bu örnekte `fit()` ayrı bir iş yapmadığı için, aynı işlem doğrudan `fit_transform()` ile de yapılabilir. Bu metot `TransformerMixin` sınıfından miras alınır, o yüzden bizim açıkça eklememize lüzum yok.
 
-
-
-    array([[       nan,        nan,        nan],
-           [       nan,        nan,        nan],
-           [0.49018197, 0.71192896, 0.38828617],
-           [0.84476988, 1.05490514, 0.92337611],
-           [1.00102605, 1.61732094, 1.66083768],
-           [1.2385959 , 2.23700766, 2.21692025],
-           [1.66253613, 2.8435669 , 2.67774672],
-           [2.39350988, 3.42250754, 3.00678718],
-           [3.08105798, 4.15249727, 3.53879924],
-           [3.63050495, 4.73878865, 4.18975166]])
-
-
-
-Aynı işlem doğrudan `fit_transform()` ile de yapılabilir. Bu metot `TransformerMixin` sınıfından miras alınır.
-
-
-```python
+```{python}
 RollingMean(n=3).fit_transform(X)
 ```
 
+## Minimum-maksimum ölçekleme
+Başka bir örnek olarak, minimum-maksimum arası ölçekleme için bir dönüştürücü oluşturalım^[Bunun için hazır bir dönüştürücü var ama örnek için yokmuş gibi yapalım.]. Bu örnekte `fit()` metodu boş durmuyor, eğitim kümesinin en büyük ve en küçük değerlerini bulup bir kenara yazıyor.
 
-
-
-    array([[       nan,        nan,        nan],
-           [       nan,        nan,        nan],
-           [0.49018197, 0.71192896, 0.38828617],
-           [0.84476988, 1.05490514, 0.92337611],
-           [1.00102605, 1.61732094, 1.66083768],
-           [1.2385959 , 2.23700766, 2.21692025],
-           [1.66253613, 2.8435669 , 2.67774672],
-           [2.39350988, 3.42250754, 3.00678718],
-           [3.08105798, 4.15249727, 3.53879924],
-           [3.63050495, 4.73878865, 4.18975166]])
-
-
-
-Başka bir örnek olarak, minimum-maksimum arası ölçekleme için bir dönüştürücü oluşturalım.
-
-
-```python
+```{python}
 class MinmaxScaler(BaseEstimator, TransformerMixin):
     def __init__(self):
         pass
@@ -499,50 +448,33 @@ Burada ölçekleme için herhangi bir parametre alınmadığından başlatıcı 
 
 Bu dönüştürücünün bir öncekinden farkı, eğitim kümesine bağlı oluşu. Bu ölçekleyici, eğitim verisinin sütunlarının minimum ve maksimum değerlerini belirliyor. `transform()` işleminde ise, aldığı verileri minimum değer 0 ve maksimum değer 1 olacak şekilde lineer bir fonksiyonla dönüştürüyor.
 
-Rastgele üretilmiş verilerle deneyelim:
+Bu dönüştürücüyü yine rastgele üretilmiş verilerle deneyelim:
 
 
-```python
+```{python}
 X_train = np.random.rand(20,3)
 X_test = np.random.rand(10,3)
+X_test
 ```
-
-
-```python
+```{python}
 scaler = MinmaxScaler().fit(X_train)
 scaler.transform(X_test)
 ```
 
-
-
-
-    array([[ 0.7171556 ,  0.18653121,  0.15542476],
-           [ 0.95137274,  0.41293377,  0.20606129],
-           [ 1.00364322, -0.09960033,  0.81927887],
-           [ 0.0066386 ,  0.28838269,  0.64103138],
-           [ 0.84623408,  0.2312216 ,  1.04458731],
-           [ 0.98245005,  0.39382278,  0.57753471],
-           [ 0.73226244,  0.07591121,  0.63281963],
-           [ 0.9372393 ,  0.75235603,  0.92966624],
-           [ 0.86734944,  0.79212456,  0.39079635],
-           [ 0.6360138 ,  1.07900475,  0.40098183]])
-
-
-
 Dönüştürücümüz `check_estimator` testlerinden de başarıyla geçiyor.
 
-
-```python
+```{python}
 check_estimator(MinmaxScaler())
 ```
 
 # Pipeline kullanımı
 
-Tahminleyicilerimiz uygun şekilde hazırlandıysa artık bunları model seçimi, parametre arama (grid search), çapraz doğrulama (cross-validation), veri hattı (pipeline) işlemleri için kullanabilirsiniz.
+Tahminleyicilerimiz uygun şekilde hazırlandıysa artık bunları model seçimi, parametre arama (grid search), çapraz doğrulama (cross-validation), veri akışı (pipeline) işlemleri için kullanabilirsiniz.
 
-Bir tahminleyiciyi bir veri hattı içinde kullanırken dikkat etmeniz gereken noktalar şunlardır:
-* Bir veri hattının `fit()` metodu, hattaki her tahminleyicinin `fit()` metodunu çağırır, giren veriyi dönüştürüp bir sonraki tahminleyiciye aktarır.
-* Hattın en sonu haricindeki tahminleyicilerin bir `fit()` veya `fit_transform()` metodu bulunmalıdır. Eğitim kümesinden farklı bir veri alacaklarsa, `transform()` metodları olmalıdır.
-* Veri hattı, hattın son adımındaki tahminleyiciyle aynı metodlara sahiptir. Son tahminleyici bir sınıflandırıcıysa, veri hattı da sınıflandırıcı olarak çalışır. Son aşamada bir dönüştürücü varsa veri hattı da bir dönüştürücüdür.  
+Bir tahminleyiciyi bir veri akışı içinde kullanırken dikkat etmeniz gereken şeyler var:
+
+* Bir `Pipeline` nesnesinin `fit()` metodu, içindeki her tahminleyicinin `fit()` metodunu sırayla çalıştırır. Hattın bir ucundan giren veriyi dönüştürüp bir sonraki tahminleyiciye aktarır.
+* Hattın en sonundaki hariç, tahminleyicilerin hepsinin bir `fit()` veya `fit_transform()` metodu bulunmalıdır. Eğitim kümesinden farklı bir veri alacaklarsa, `transform()` metodları olmalıdır.
+* `Pipeline` nesnesi, hattın son adımındaki tahminleyiciyle aynı metodlara sahiptir. Son tahminleyici bir sınıflandırıcıysa, veri hattı da sınıflandırıcı olarak çalışır. Son aşamada bir dönüştürücü varsa, veri hattı da bir dönüştürücüdür.  
 
 Veri hatlarıyla ilgili daha fazla bilgi için [ilgili belgelere bakabilirsiniz](https://scikit-learn.org/stable/modules/compose.html#pipeline-chaining-estimators).

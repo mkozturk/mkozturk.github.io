@@ -8,7 +8,6 @@ format:
     code-fold: true
 categories:
     - Bayesian analysis
-    - applied probability
 image : "secimsandigindabayes_oysayimi.jpg"
 ---
 ![](secimsandigindabayes_oysayimi.jpg)
