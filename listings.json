@@ -6,14 +6,14 @@
   {
     "listing": "/blog.html",
     "items": [
-      "/posts/tr/2023/scikit-tahminleyici-yazmak/scikit-learn API'sine uyumlu tahminleyiciler yazmak.html",
+      "/posts/tr/2023/scikit-tahminleyici-yazmak/index.html",
       "/posts/tr/2023/secim-sandiginda-bayes/index.html"
     ]
   },
   {
     "listing": "/blog-tr.html",
     "items": [
-      "/posts/tr/2023/scikit-tahminleyici-yazmak/scikit-learn API'sine uyumlu tahminleyiciler yazmak.html",
+      "/posts/tr/2023/scikit-tahminleyici-yazmak/index.html",
       "/posts/tr/2023/secim-sandiginda-bayes/index.html"
     ]
   }
