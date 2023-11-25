@@ -2,22 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mkozturk.github.io/blog-en.html</loc>
-    <lastmod>2023-11-09T18:11:25.895Z</lastmod>
+    <lastmod>2023-11-25T11:54:31.621Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.github.io/blog.html</loc>
-    <lastmod>2023-11-09T18:11:25.403Z</lastmod>
+    <lastmod>2023-11-25T11:54:31.113Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.github.io/posts/tr/2023/secim-sandiginda-bayes/index.html</loc>
-    <lastmod>2023-11-09T18:11:24.547Z</lastmod>
+    <lastmod>2023-11-25T11:54:29.881Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.github.io/blog-tr.html</loc>
-    <lastmod>2023-11-09T18:11:22.171Z</lastmod>
+    <lastmod>2023-11-25T11:54:27.766Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mkozturk.github.io/posts/tr/2023/scikit-tahminleyici-yazmak/scikit-learn API'sine uyumlu tahminleyiciler yazmak.html</loc>
+    <lastmod>2023-11-25T11:54:30.745Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.github.io/index.html</loc>
-    <lastmod>2023-11-09T18:11:25.655Z</lastmod>
+    <lastmod>2023-11-25T11:54:31.361Z</lastmod>
   </url>
 </urlset>
