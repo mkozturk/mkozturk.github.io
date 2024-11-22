@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kaan Öztürk">
+<meta name="dcterms.date" content="2024-02-04">
+<meta name="description" content="What is a project?">
 
-<title>Kaan Öztürk - Blog</title>
+<title>Kaan Öztürk - Project structuring for the minimalist data scientist - 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,42 +62,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-posts-tr .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-subtitle','listing-categories','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-posts-tr'] = new List('listing-posts-tr', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
-<meta name="twitter:title" content="Kaan Öztürk - Blog">
-<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/diagram.svg">
+<link rel="stylesheet" href="../../../../styles.css">
+<meta name="twitter:title" content="Kaan Öztürk - Project structuring for the minimalist data scientist - 2">
+<meta name="twitter:description" content="What is a project?">
+<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/project-structuring-for-the-minimalist-data-scientist-2/tai-bui-wf4F-KgJKgc-unsplash.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -107,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Kaan Öztürk</span>
     </a>
   </div>
@@ -118,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -127,15 +98,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-blog">    
         <li>
-    <a class="dropdown-item" href="./blog.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog.html" rel="" target="">
  <span class="dropdown-text">All posts</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./blog-en.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog-en.html" rel="" target="">
  <span class="dropdown-text">English</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./blog-tr.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog-tr.html" rel="" target="">
  <span class="dropdown-text">Türkçe</span></a>
   </li>  
     </ul>
@@ -148,103 +119,81 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Project structuring for the minimalist data scientist - 2</h1>
+                  <div>
+        <div class="description">
+          What is a project?
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">data science software</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kaan Öztürk </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 4, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-is-a-project" id="toc-what-is-a-project" class="nav-link active" data-scroll-target="#what-is-a-project">What is a “project”?</a></li>
+  <li><a href="#project-directories" id="toc-project-directories" class="nav-link" data-scroll-target="#project-directories">Project directories</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="posts-in-english" class="level2">
-<h2 class="anchored" data-anchor-id="posts-in-english">Posts in English</h2>
-<div id="posts-en">
-
-</div>
-
+<p>In the <a href="../../../../posts/en/2024/project-structuring-for-the-minimalist-data-scientist-1/index.html">first part of this series</a>, I described my “minimalist” approach: Be as simple as possible; when you add something, have a good reason for it.</p>
+<section id="what-is-a-project" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-project">What is a “project”?</h2>
+<p>I was going to start by saying that you should have a dedicated directory and virtual environment for every data science project you have. But I remembered that I myself could not make sense of this advice when I heard it, because of my own struggle with the concept of “project”. So maybe I should start with a few words about what a project is.</p>
+<p>For me, the word “project” had a grand aura around it. A project would take a long time, maybe years. It would involve many people, led by a project manager, which I’m not. My daily work was just writing some programs, producing source files or presentations. So, when my boss asks me to do a forecast of sales, how is that a “project”?</p>
+<p>My confusion cleared up when I realized that a project doesn’t have to be as big as a skyscraper or an operating system. In fact, <strong>any task with a clear outcome and clear constraints is a project</strong>.</p>
+<p>So, writing a program to forecast next year’s sales and generating a report is, indeed, a project. Creating a dashboard that queries the database daily and displays the sales graph is another.</p>
+<p>You need to be able to say when you are done with a project. So, “researching the applications of LLMs in our market” is not a project, because you can never say that the research is done. When you take up on a task, think about what the outcome should be, and set the boundaries of your project accordingly.</p>
+<p>The <a href="https://en.wikipedia.org/wiki/SMART_criteria">SMART criteria</a> of goal-setting can be relevant here. They are useful guidelines, but I find them hard to follow to the letter.</p>
+<p>In any case, when you have decided on an outcome for your project, you usually know where you are headed, and when it is time to stop. The latter is even more important. Personally, I have a hard time wrapping up projects, so I prioritize defining the stopping criteria.</p>
+</section>
+<section id="project-directories" class="level2">
+<h2 class="anchored" data-anchor-id="project-directories">Project directories</h2>
+<p>A common advice is to have one directory per project. This usually comes from software engineers, and for good reason. Software projects tend to be self-contained products, and there are usually some auxiliary files that go with them: Source code, config files, credentials, tests, documentation,… I also advise creating one directory for each project, and all the following posts will assume you do.</p>
+<p>Sometimes this might look like an unnecessary complication. What if your project is just the analysis of some subset of data? You only produce a Jupyter notebook, nothing more. Creating a dedicated directory for a single notebook is indeed an unnecessary complication, and it makes it difficult to find your files when you need them later. For such tasks, it might be better to collect them under a single directory, say, <code>reports</code>. I describe my approach to that in a later post.</p>
 
 
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-posts-tr">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-posts-tr-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-posts-tr'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="numerical methods,computational physics" data-listing-date-sort="1732222800000" data-listing-file-modified-sort="1732301960939" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"> <img src="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/diagram.svg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html">
-<h3 class="no-anchor listing-title">
-Michel’s method for numerical solution of equations of motion
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('numerical methods'); return false;">
-numerical methods
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('computational physics'); return false;">
-computational physics
-</div>
-</div>
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"> </a>
-</div>
-<div class="metadata">
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html">
-<div class="listing-date">
-Nov 22, 2024
-</div>
-<div class="listing-reading-time">
-9 min
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

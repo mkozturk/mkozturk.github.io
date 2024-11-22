@@ -2,26 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mkozturk.com/blog-en.html</loc>
-    <lastmod>2023-12-01T10:54:36.217Z</lastmod>
+    <lastmod>2024-11-22T20:27:21.149Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.com/blog.html</loc>
-    <lastmod>2023-12-01T10:54:35.601Z</lastmod>
+    <lastmod>2024-11-22T20:27:18.061Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/index.html</loc>
-    <lastmod>2023-12-01T10:54:34.153Z</lastmod>
+    <lastmod>2024-11-22T20:27:12.058Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.com/blog-tr.html</loc>
-    <lastmod>2023-12-01T10:54:31.325Z</lastmod>
+    <lastmod>2024-11-22T20:26:49.184Z</lastmod>
+  </url>
+  <url>
+    <loc>https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html</loc>
+    <lastmod>2024-11-22T20:27:08.574Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/index.html</loc>
-    <lastmod>2023-12-01T10:54:35.149Z</lastmod>
+    <lastmod>2024-11-22T20:27:16.059Z</lastmod>
   </url>
   <url>
     <loc>https://mkozturk.com/index.html</loc>
-    <lastmod>2023-12-01T10:54:35.909Z</lastmod>
+    <lastmod>2024-11-22T20:27:19.274Z</lastmod>
   </url>
 </urlset>

@@ -1,11 +1,14 @@
 [
   {
     "listing": "/blog-en.html",
-    "items": []
+    "items": [
+      "/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"
+    ]
   },
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html",
       "/posts/tr/2023/scikit-tahminleyici-yazmak/index.html",
       "/posts/tr/2023/secim-sandiginda-bayes/index.html"
     ]

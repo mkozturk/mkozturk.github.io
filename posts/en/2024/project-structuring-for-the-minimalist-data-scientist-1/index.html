@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Kaan Öztürk">
+<meta name="dcterms.date" content="2024-02-03">
+<meta name="description" content="How to begin setting up your data science projects.">
 
-<title>Kaan Öztürk - Blog</title>
+<title>Kaan Öztürk - Project structuring for the minimalist data scientist - 1</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +26,22 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../../">
+<script src="../../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,42 +62,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-posts-tr .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-subtitle','listing-categories','listing-reading-time',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-posts-tr'] = new List('listing-posts-tr', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
-<meta name="twitter:title" content="Kaan Öztürk - Blog">
-<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/diagram.svg">
+<link rel="stylesheet" href="../../../../styles.css">
+<meta name="twitter:title" content="Kaan Öztürk - Project structuring for the minimalist data scientist - 1">
+<meta name="twitter:description" content="How to begin setting up your data science projects.">
+<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/project-structuring-for-the-minimalist-data-scientist-1/tai-bui-wf4F-KgJKgc-unsplash.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -107,7 +78,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../../../index.html">
     <span class="navbar-title">Kaan Öztürk</span>
     </a>
   </div>
@@ -118,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -127,15 +98,15 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-blog">    
         <li>
-    <a class="dropdown-item" href="./blog.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog.html" rel="" target="">
  <span class="dropdown-text">All posts</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./blog-en.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog-en.html" rel="" target="">
  <span class="dropdown-text">English</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./blog-tr.html" rel="" target="">
+    <a class="dropdown-item" href="../../../../blog-tr.html" rel="" target="">
  <span class="dropdown-text">Türkçe</span></a>
   </li>  
     </ul>
@@ -148,103 +119,91 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Project structuring for the minimalist data scientist - 1</h1>
+                  <div>
+        <div class="description">
+          How to begin setting up your data science projects.
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">data science software</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Kaan Öztürk </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">February 3, 2024</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
-<!-- main -->
-<main class="content column-page" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-</header>
-
-<section id="posts-in-english" class="level2">
-<h2 class="anchored" data-anchor-id="posts-in-english">Posts in English</h2>
-<div id="posts-en">
-
-</div>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-posts-tr">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-posts-tr-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-posts-tr'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
     </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="numerical methods,computational physics" data-listing-date-sort="1732222800000" data-listing-file-modified-sort="1732301960939" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
-<div class="thumbnail">
-<p><a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"> <img src="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/diagram.svg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html">
-<h3 class="no-anchor listing-title">
-Michel’s method for numerical solution of equations of motion
-</h3>
-<div class="listing-subtitle">
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tai-bui-wf4F-KgJKgc-unsplash.jpg" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Photo by <a href="https://unsplash.com/@agforl24?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Tai Bui</a> on <a href="https://unsplash.com/photos/a-cat-laying-on-its-back-on-top-of-a-laptop-computer-wf4F-KgJKgc?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash">Unsplash</a></figcaption>
+</figure>
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('numerical methods'); return false;">
-numerical methods
+<p>You are a data scientist beginning with a new task. You think it through, decide on the models you’re going to try, establish your data sources. You are ready to start coding.</p>
+<p>How do you start?</p>
+<p>Maybe you launch a Jupyter notebook, import your libraries, and start hacking away. After you complete the task, you pass the huge notebook to someone else to put into the so-called “production”. There’s still a lot more to be done before the program suitable for being part of the daily operations, but another poor soul will take care of that.</p>
+<p>Even if you can get away with this approach, you may still have some organizational problems. A single folder of notebooks becomes bloated and unmanageable after a short time. It might be difficult to find an old notebook when someone asks you about a an algorithmic detail. When you rerun an old notebook, you frequently get a bunch of error messages, resulting from the changes in the library packages.</p>
+<p>After a while, you are tired of this mess. You try to find a better solution. Software engineers have ways of dealing with this complexity. You talk to them, but you cannot make much sense out of their methods, which, on the surface, look like a set of memorized rules (“This is the way!”).</p>
+<p>I come from an academic background. Programs I wrote in that career were only for my own consumption, limited to some analysis. Things are different when you write code that will be used by others. So when I switched careers, I had to learn the fundamentals of how to set up a software project. All the difficulties I described above are my experiences.</p>
+<p>I took advice from experienced software engineers, but I could not bring myself to follow it verbatim, simply because I could not see the reason for some of it. Without any doubt, they are good advice. But they tend to be <em>maximalist</em>.</p>
+<p>“You might need this <code>blahblah.xyz</code> file later, trust me” does not really cut it with me. I need to know the reason of existence for every line of code in my programs. I am a <em>minimalist</em> in coding: I don’t want to keep any unnecessary thing around. (Maybe this has to do with my theoretical science background.)</p>
+<p>A case in point is the <a href="https://drivendata.github.io/cookiecutter-data-science/"><code>cookiecutter-datascience</code> template</a>. It is popular among developers and data scientists, and I used in a few projects of mine. It incorporates a lot of good ideas, and I strongly recommend everyone to read and understand it. However, I find this structure difficult to maintain. It has a lot of subdirectories, it is a hassle to navigate through them, and it is not always clear what belongs where.</p>
+<p>I’m sure <code>cookiecutter-datascience</code> is very useful once your project reaches a certain level of sophistication. However, for projects I have done so far, a simpler structure turned out to be sufficient.</p>
+<p>In a series of posts following this one, I’ll describe how I start a data science project and how I structure its files. I will be writing about virtual environments, how to create installable packages, what to put into your project folder, using GitHub, and how to structure reports and analyses as projects. More importantly, I’ll try to explain why these are necessary. I would always prefer a single file of source code if possible, and I need a good reason to multiply source files.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('computational physics'); return false;">
-computational physics
-</div>
-</div>
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"> </a>
-</div>
-<div class="metadata">
-<a href="./posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html">
-<div class="listing-date">
-Nov 22, 2024
-</div>
-<div class="listing-reading-time">
-9 min
-</div>
-</a>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>Plurality must never be posited without necessity.</p>
+<p>— <em>William of Ockham (1495)</em></p>
 </div>
-<div class="listing-no-matching d-none">
-No matching items
 </div>
-</div></main> <!-- /main -->
+<p>None of these will be ironclad principles. I might change my mind about them later. The only strong principle I suggest is: Be a minimalist, use as few things as possible, and know the purpose of everything in your program. Add new things only if you know you need them.</p>
+<p>Such minimalism is also a learning opportunity. First, you try to make do as much as possible with your present system. This teaches you the limits of what you can do, and you might discover that you don’t need any extra tool. Second, when you add a new tool into your system, you’ll know exactly why you need it.</p>
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
