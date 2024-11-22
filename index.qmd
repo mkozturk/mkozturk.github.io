@@ -4,6 +4,8 @@ image: profile.jpeg
 about:
   template: trestles
   links:
+    - text: "📩 Email"
+      href: mailto:kaanozturkblog@gmail.com
     - icon: twitter
       text: Twitter
       href: https://twitter.com/mkozturk
@@ -20,13 +22,13 @@ about:
       href: https://scholar.google.com.tr/citations?user=HoZDB8MAAAAJ&hl=en
 ---
 
-I am a senior data scientist, currently working at [Kavaken](https://www.kavaken.com/), developing predictive analytics tools for wind turbines. I live in Istanbul and Tekirdağ with my family and our three cats.
+I’m a data scientist based in Istanbul and Tekirdağ, where I share my life with my family and our beloved cats.
 
-My training is in physics, with a PhD in magnetospheric physics. I have taught in various universities for more than a decade, before leaving academia altogether for a career in data science.
+My training is in physics, culminating with a PhD in magnetospheric physics. For over a decade, I taught at various universities, designing and leading programming courses and guiding students and teaching assistants alike. Eventually, I transitioned from academia to pursue an exciting career in data science.
 
-I'm a proud alumnus of İstanbul Erkek Lisesi, Boğaziçi University, and Rice University.
+I'm a proud alumnus of İstanbul Erkek Lisesi (1991), Boğaziçi University (B.Sc. 1996, M.Sc 1999), and Rice University (PhD 2004).
 
-This site is mainly about my technical notes. For the interested, I have written a number of pieces in other websites (all in Turkish):
+This site is mainly about my [technical notes](blog.html). For the interested, I have written a number of pieces in other websites (all in Turkish):
 
 * [Yalansavar](https://yalansavar.org/author/mkoz/): Scientific skepticism
 * [Açık Bilim](http://www.acikbilim.com/author/kaanozturk): Popular science

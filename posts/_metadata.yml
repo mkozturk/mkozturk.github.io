@@ -9,6 +9,8 @@ title-block-banner: true
 
 author: "Kaan Öztürk"
 toc: true
+website: 
+  page-navigation: true
 reference-location: margin
 format: 
   html:
