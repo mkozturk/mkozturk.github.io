@@ -8,6 +8,7 @@
 
 <meta name="author" content="Kaan Öztürk">
 <meta name="dcterms.date" content="2024-11-22">
+<meta name="description" content="A simple but powerful method for solving equations of motion, developed by the late Prof.&nbsp;Curtis Michel.">
 
 <title>Kaan Öztürk - Michel’s method for numerical solution of equations of motion</title>
 <style>
@@ -158,7 +159,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">Michel’s method for numerical solution of equations of motion</h1>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          A simple but powerful method for solving equations of motion, developed by the late Prof.&nbsp;Curtis Michel.
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">numerical methods</div>
                 <div class="quarto-category">computational physics</div>
               </div>
@@ -208,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p><em>Prof.&nbsp;<a href="https://en.wikipedia.org/wiki/Curt_Michel">F. Curtis Michel (1934-2015)</a> was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. In a departmental seminar on March 3, 2005, he described a method for numerical solution of a differential equation of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof.&nbsp;Michel did not publish this method. I recently found my notes from that that talk and I decided to write it up here.</em></p>
+<p><em>Prof.&nbsp;<a href="https://en.wikipedia.org/wiki/Curt_Michel">F. Curtis Michel (1934-2015)</a> was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. At a departmental seminar on March 3, 2005, he described a method for numerically solving differential equations of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof.&nbsp;Michel did not publish this method. I recently found my notes from that that talk and I decided to write it up here.</em></p>
 <section id="the-algorithm" class="level2">
 <h2 class="anchored" data-anchor-id="the-algorithm">The algorithm</h2>
 <p>Let <span class="math inline">\(\mathbf{x}\in \mathbb{R}^3\)</span> be the position and <span class="math inline">\(\mathbf{v}\in \mathbb{R}^3\)</span> be the velocity of a particle at a given time. The time evolution of these variables obey the following equation of motion:</p>
@@ -411,7 +417,7 @@ W &amp;=&amp; \int \mathbf{F}(\mathbf{x})\mathrm{d}\mathbf{x}\\
 <p>Note that when the acceleration does not depend on the velocity, the scheme is not implicit anymore. The position and velocity updates can be combined in the following form:</p>
 <p><span class="math display">\[
 \mathbf{x}_{n+1} = \mathbf{x}_n + \tau\mathbf{v}_n + \frac{\tau^2}{2} \mathbf{a}(\mathbf{x}_n+\frac{\tau}{2}\mathbf{v}_n)
-\]</span></p>
+\]</span> where all the terms on the right-hand side are calculated using values at step <span class="math inline">\(n\)</span>.</p>
 <p>The gravitational acceleration of a body due to a mass <span class="math inline">\(M\)</span> is</p>
 <p><span class="math display">\[
 \mathbf{a}(\mathbf{x}) = -\frac{GM}{|\mathbf{x}|^3}\mathbf{x}
