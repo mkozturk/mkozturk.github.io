@@ -1,6 +1,6 @@
 ---
 title: "Michel's method for numerical solution of equations of motion"
-description: ""
+description: "A simple but powerful method for solving equations of motion, developed by the late Prof. Curtis Michel."
 author: "Kaan Öztürk"
 date: "2024-11-22"
 toc: true
@@ -14,7 +14,7 @@ categories:
     - computational physics
 ---
 
-*Prof. [F. Curtis Michel (1934-2015)](https://en.wikipedia.org/wiki/Curt_Michel) was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. In a departmental seminar on March 3, 2005, he described a method for numerical solution of a differential equation of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof. Michel did not publish this method. I recently found my notes from that that talk and I decided to write it up here.*
+*Prof. [F. Curtis Michel (1934-2015)](https://en.wikipedia.org/wiki/Curt_Michel) was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. At a departmental seminar on March 3, 2005, he described a method for numerically solving differential equations of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof. Michel did not publish this method. I recently found my notes from that that talk and I decided to write it up here.*
 
 
 ## The algorithm
