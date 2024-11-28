@@ -53,7 +53,7 @@
     "href": "posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html",
     "title": "Michel’s method for numerical solution of equations of motion",
     "section": "",
-    "text": "Prof. F. Curtis Michel (1934-2015) was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. At a departmental seminar on March 3, 2005, he described a method for numerically solving differential equations of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof. Michel did not publish this method. I recently found my notes from that that talk and I decided to write it up here."
+    "text": "Prof. F. Curtis Michel (1934-2015) was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. At a departmental seminar on March 3, 2005, he described a method for numerically solving differential equations of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof. Michel did not publish this method. I recently found my notes from that talk and I decided to write it up here."
   },
   {
     "objectID": "posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html#the-algorithm",
