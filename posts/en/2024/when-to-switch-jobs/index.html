@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Kaan Öztürk">
-<meta name="dcterms.date" content="2023-11-07">
-<meta name="description" content="Data science is never a detached, purely technical occupation. Find out how the tendency to neglect the base rates can have dire consequences.">
+<meta name="dcterms.date" content="2024-11-24">
+<meta name="description" content="Optimal foraging">
 
-<title>Kaan Öztürk - What is the neglect of base rates and why does it matter?</title>
+<title>Kaan Öztürk - When to switch jobs? A mathematical perspective</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,9 +74,9 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="../../../../styles.css">
-<meta name="twitter:title" content="Kaan Öztürk - What is the neglect of base rates and why does it matter?">
-<meta name="twitter:description" content="Data science is never a detached, purely technical occupation. Find out how the tendency to neglect the base rates can have dire consequences.">
-<meta name="twitter:image" content="https://mkozturk.com/posts/en/2023/base-rate-neglect/facial_recognition.jpg">
+<meta name="twitter:title" content="Kaan Öztürk - When to switch jobs? A mathematical perspective">
+<meta name="twitter:description" content="Optimal foraging">
+<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/when-to-switch-jobs/colorful_cloud.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -136,15 +136,14 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">What is the neglect of base rates and why does it matter?</h1>
+      <h1 class="title">When to switch jobs? A mathematical perspective</h1>
                   <div>
         <div class="description">
-          Data science is never a detached, purely technical occupation. Find out how the tendency to neglect the base rates can have dire consequences.
+          Optimal foraging
         </div>
       </div>
                           <div class="quarto-categories">
-                <div class="quarto-category">data science</div>
-                <div class="quarto-category">probability</div>
+                <div class="quarto-category">mathematical models</div>
               </div>
                   </div>
   </div>
@@ -162,7 +161,7 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">November 7, 2023</p>
+        <p class="date">November 24, 2024</p>
       </div>
     </div>
     
@@ -174,7 +173,13 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-marginal-value-theorem" id="toc-the-marginal-value-theorem" class="nav-link active" data-scroll-target="#the-marginal-value-theorem">The Marginal Value Theorem</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content quarto-banner-title-block" id="quarto-document-content">
@@ -182,34 +187,14 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 
 
 
-<p>Suppose someone tries to sell a fraud detection system for your online retail company. They visit and make a presentation, claiming that the system has an accuracy of 99%. Seeing the excitement in your boss’ eyes, they continue: “If the alarm goes off, you can be 99% sure that it is a fraud!”</p>
-<p>You startle where you sit. That’s not right. An accuracy of 99% means that the system identifies fraud and non-fraud cases correctly 99% of the time. It also means that 1% of the time, it misses a fraud case (a false negative) or accuses an innocent transaction of fraud (a false positive). It does not mean that the transaction is almost certainly a fraud when it returns a positive result.</p>
-<p>Here’s how:</p>
-<p>Let’s assume both frauds and innocents are identified correctly 99% of the time. Consider a set of 100,000 transactions. You know that in your line of work, fraud occurs at a rate of less than 0.1%, or one in a thousand. So, there should be about 100 fraudulent transactions in this set and 99,900 genuine transactions.</p>
-<p>Suppose you apply this fraud test to every one of these transactions. Since it identifies correctly about 99% of the time, you expect it to catch 99 of the frauds and miss one. Similarly, it will correctly recognize 98,901 transactions (99% of 99,900) as genuine but label 999 of them falsely as fraudulent.</p>
-<p>In other words, the test goes off for 99+999=1098 of these transactions, of which only 99 are actually fraudulent. This means that the red flag of this fraud detection system is correct only 9% of the time and far from the 99% claimed by the speaker.</p>
-<p>The word “fallacy” indicates a flaw in reasoning, a thinking error. In this particular case, the flaw is the neglect of how rare a fraud is. The 99% accuracy of the system may look impressive. In fact, it does catch most of the cases. However, at the same time, it produces a lot of false alarms. In this case, about ten false alarms for every fraud.</p>
-<p>Does this mean the system is useless? Far from it. Without the system, out of 1000 transactions, only one is known to be fraudulent. After running the system, the rate goes up to one in eleven. Maybe we can apply another test to this subset or examine them manually.</p>
-<p>However, inflated claims about the system’s performance should be avoided unless the accuracy is increased to a much higher level.</p>
-<p>You interrupt the speaker to tell all this. The response is, well, less than sympathetic. You turn to your boss. He shrugs. The next day, you get an email from him saying he bought the fraud detection system. You sigh and seek happiness in SQL queries.</p>
-<hr>
-<p>In some cases, base rate neglect can lead to more disastrous consequences. Suppose the government announces a state-of-the-art face recognition system for identifying terrorists using public cameras. The government spokesman proudly announces that this national security system has 99.9% accuracy. “It will completely eradicate terrorism,” he continues.</p>
-<p><img src="facial_recognition.jpg" class="img-fluid"></p>
-<p>However, dangerous as they are, terrorists are rare in the population. Suppose that there are 8,000 terrorists (likely an overestimation) among a nation of 80 million innocents. Imagine an experiment where the test is applied to the whole population, one person at a time.</p>
-<p>Of the 8,000 terrorists, this experiment will catch 7,992 and miss 8. So far, so good. It almost certainly will eradicate terrorism. However, of the innocent 80 million, 80,000 will be falsely accused of being a terrorist—ten times as many as actual terrorists.</p>
-<p>Even though the math is identical, the two problems we have seen are psychologically and politically very different. We can manually inspect the transactions without ruining anybody’s life in the fraud detection problem. However, terrorism accusations will have dire consequences. It might cause witch hunts or lead to the destruction of democratic rights. The advanced face recognition system would not only eradicate terrorism; it would also jeopardize freedom.</p>
-<p>Data science is never a detached, purely technical occupation. Like everything in life, it has social and political ramifications that should be carefully pondered.</p>
-<hr>
-<p>The base-rate neglect fallacy can also be observed in some discussions surrounding COVID-19 vaccines. Some point out that, among people hospitalized for COVID-19, there is a higher number of vaccinated people than unvaccinated. They claim that vaccines should be doing more harm than good based on this.</p>
-<p>This argument might look convincing at first sight, but a moment’s reflection shows that it is another form of base-rate neglect but in reverse. Now the effect is dominated by the larger population rather than the smaller one.</p>
-<p>This is best illustrated with the following diagram, created by Marc Rumilly.</p>
-<p><img src="neglectofbase.png" class="img-fluid"></p>
-<p>For discussion’s sake, suppose we have 15 people hospitalized for COVID-19, five unvaccinated, and ten vaccinated. This is shown on the left part of the diagram. There is the big picture on the right that shows us the base rates. There are one hundred vaccinated people and just ten unvaccinated ones. So, while just 10% of vaccinated people are hospitalized, a whopping 50% of unvaccinated people end up in hospital. (These are not actual data, but the reality is close to them, as Rumilly’s analysis shows.)</p>
-<p>As an aside, it is observed that the unvaccinated are always in the majority in intensive-care units, whether we consider base rate or not. A fair comparison should also take this into account.</p>
-<p>The diagram on the left is about the question, “What is the ratio of vaccinated people among the hospitalized?” However, we are mainly interested in the reversed question, “What is the hospitalization ratio if vaccinated or not?” For this, we need to consult the second diagram involving base rates. The fallacy in base rate neglect stems from that kind of confusion in variables.</p>
-<p><em>(This post was first published in <a href="https://www.kavaken.com/blog/what-is-the-neglect-of-base-rates-and-why-does-it-matter">Kavaken company blog</a> on Nov 30, 2021.)</em></p>
+<p>Suppose you’ve at your current job for some time now, but not for too long. It’s not exciting as in the first months, but it’s not completely dull, either. The pay is fine, but you have a new kid now, with new expenses.</p>
+<p>You think of getting a new job, but that might have its problems, too: Adapting to new company and their way of working, a new commute, and other uncertainities. If the pay is not too different, why bother?</p>
+<section id="the-marginal-value-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-marginal-value-theorem">The Marginal Value Theorem</h2>
+<p>The model we’re going to discuss</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

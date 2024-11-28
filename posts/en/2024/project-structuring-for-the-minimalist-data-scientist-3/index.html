@@ -96,6 +96,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-5PQNVMN09N"></script>
+
+<script type="text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
+</script>
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -147,6 +156,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
     </ul>
   </li>
+  <li class="nav-item compact">
+    <a class="nav-link" href="../../../../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
 </ul>
             <div class="quarto-navbar-tools">
 </div>
@@ -227,15 +241,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-1" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-annotation="1" data-code-cell="annotated-cell-1" data-code-lines="1">Using the standard library package <code>venv</code>, create a virtual environment in the subdirectory <code>.venv</code></span>
+<span data-code-annotation="1" data-code-lines="1" data-code-cell="annotated-cell-1">Using the standard library package <code>venv</code>, create a virtual environment in the subdirectory <code>.venv</code></span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-annotation="2" data-code-cell="annotated-cell-1" data-code-lines="2">Activate the virtual environment by running its activation script.</span>
+<span data-code-annotation="2" data-code-lines="2" data-code-cell="annotated-cell-1">Activate the virtual environment by running its activation script.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
-<span data-code-annotation="3" data-code-cell="annotated-cell-1" data-code-lines="3">The shell prompt changes to indicate that the virtual environment is active. Now the <code>pip</code> command installs the packages into the <code>.venv</code> directory. Any <code>python</code> command will refer to this directory to find packages.</span>
+<span data-code-annotation="3" data-code-lines="3" data-code-cell="annotated-cell-1">The shell prompt changes to indicate that the virtual environment is active. Now the <code>pip</code> command installs the packages into the <code>.venv</code> directory. Any <code>python</code> command will refer to this directory to find packages.</span>
 </dd>
 </dl>
 <p>When you don’t want to use this virtual environment, deactivate it:</p>
