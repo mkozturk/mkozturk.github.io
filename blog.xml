@@ -10,7 +10,19 @@
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.3.450</generator>
-<lastBuildDate>Thu, 21 Nov 2024 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 28 Nov 2024 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>Estimating the probability of rare events</title>
+  <dc:creator>Kaan Öztürk</dc:creator>
+  <link>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/index.html</link>
+  <description><![CDATA[ Suppose you have a set of data, which is concentrated around some mode value, as usual. The farther out you go, the fewer points you have. In other words, large deviations from the mode is unlikely. The larger, the unlikelier. (A very small value may count as a large deviation in the other direction, depending on the distribution.) ]]></description>
+  <category>outliers</category>
+  <category>extreme value theory</category>
+  <category>probability</category>
+  <guid>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/index.html</guid>
+  <pubDate>Thu, 28 Nov 2024 21:00:00 GMT</pubDate>
+  <media:content url="https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/colorful_cloud.png" medium="image" type="image/png" height="56" width="144"/>
+</item>
 <item>
   <title>Michel’s method for numerical solution of equations of motion</title>
   <dc:creator>Kaan Öztürk</dc:creator>
