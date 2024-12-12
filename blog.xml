@@ -10,7 +10,19 @@
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Thu, 28 Nov 2024 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 11 Dec 2024 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>My lecture notes on R</title>
+  <dc:creator>Kaan Öztürk</dc:creator>
+  <link>https://mkozturk.com/posts/en/2024/r-lecture-notes/</link>
+  <description><![CDATA[ and some rants about teaching the course ]]></description>
+  <category>R</category>
+  <category>lecture notes</category>
+  <category>teaching</category>
+  <guid>https://mkozturk.com/posts/en/2024/r-lecture-notes/</guid>
+  <pubDate>Wed, 11 Dec 2024 21:00:00 GMT</pubDate>
+  <media:content url="https://mkozturk.com/posts/en/2024/r-lecture-notes/labimage.webp" medium="image" type="image/webp"/>
+</item>
 <item>
   <title>Estimating the probability of rare events</title>
   <dc:creator>Kaan Öztürk</dc:creator>
