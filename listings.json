@@ -20,5 +20,14 @@
       "/posts/tr/2023/scikit-tahminleyici-yazmak/index.html",
       "/posts/tr/2023/secim-sandiginda-bayes/index.html"
     ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/en/2024/Estimating-probability-of-rare-events/index.html",
+      "/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html",
+      "/posts/tr/2023/scikit-tahminleyici-yazmak/index.html",
+      "/posts/tr/2023/secim-sandiginda-bayes/index.html"
+    ]
   }
 ]

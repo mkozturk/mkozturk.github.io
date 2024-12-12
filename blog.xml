@@ -9,48 +9,48 @@
 <link>https://mkozturk.com/blog.html</link>
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.3.450</generator>
+<generator>quarto-1.6.39</generator>
 <lastBuildDate>Thu, 28 Nov 2024 21:00:00 GMT</lastBuildDate>
 <item>
   <title>Estimating the probability of rare events</title>
   <dc:creator>Kaan Öztürk</dc:creator>
-  <link>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/index.html</link>
-  <description><![CDATA[ Suppose you have a set of data, which is concentrated around some mode value, as usual. The farther out you go, the fewer points you have. In other words, large deviations from the mode is unlikely. The larger, the unlikelier. (A very small value may count as a large deviation in the other direction, depending on the distribution.) ]]></description>
+  <link>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/</link>
+  <description><![CDATA[ “It is most unlikely. But—here comes the big ‘but’—not impossible.” – Roald Dahl ]]></description>
   <category>outliers</category>
   <category>extreme value theory</category>
   <category>probability</category>
-  <guid>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/index.html</guid>
+  <guid>https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/</guid>
   <pubDate>Thu, 28 Nov 2024 21:00:00 GMT</pubDate>
   <media:content url="https://mkozturk.com/posts/en/2024/Estimating-probability-of-rare-events/colorful_cloud.png" medium="image" type="image/png" height="56" width="144"/>
 </item>
 <item>
   <title>Michel’s method for numerical solution of equations of motion</title>
   <dc:creator>Kaan Öztürk</dc:creator>
-  <link>https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html</link>
-  <description><![CDATA[ <em>Prof.&nbsp;<a href="https://en.wikipedia.org/wiki/Curt_Michel">F. Curtis Michel (1934-2015)</a> was the Andrew Hays Buchanan Professor of Astrophysics at Rice University. At a departmental seminar on March 3, 2005, he described a method for numerically solving differential equations of motion. He developed the method independently during his work on stellar magnetospheres, but he did not claim any originality. As far as I know, Prof.&nbsp;Michel did not publish this method. I recently found my notes from that talk and I decided to write it up here.</em> ]]></description>
+  <link>https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/</link>
+  <description><![CDATA[ A simple but powerful method for solving equations of motion, developed by the late Prof. Curtis Michel. ]]></description>
   <category>numerical methods</category>
   <category>computational physics</category>
-  <guid>https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html</guid>
+  <guid>https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/</guid>
   <pubDate>Thu, 21 Nov 2024 21:00:00 GMT</pubDate>
   <media:content url="https://mkozturk.com/posts/en/2024/Michels-method-for-numerical-solution-of-eom/diagram.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
   <title>Scikit-learn ile Kendi Tahminleyicilerimizi Yazmak</title>
   <dc:creator>Kaan Öztürk</dc:creator>
-  <link>https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/index.html</link>
-  <description><![CDATA[ Python’la yapay öğrenme modelleri çalıştıran her veri bilimcinin aşina olduğu bir kütüphanedir <a href="https://scikit-learn.org/stable/"><code>scikit-learn</code></a>. Son derece zengin bir algoritma koleksiyonunu barındırır. Çoğu zaman o algoritmaları olduğu gibi kullanmak yeterlidir. ]]></description>
+  <link>https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/</link>
+  <description><![CDATA[ Algoritmalarınızı scikit-learn yapısına uygun olarak yazın ve bu zengin kütüphanenin gücünü tam olarak kullanın ]]></description>
   <category>data science</category>
-  <guid>https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/index.html</guid>
+  <guid>https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/</guid>
   <pubDate>Fri, 24 Nov 2023 21:00:00 GMT</pubDate>
   <media:content url="https://mkozturk.com/posts/tr/2023/scikit-tahminleyici-yazmak/scikit-learn-logo.png" medium="image" type="image/png" height="78" width="144"/>
 </item>
 <item>
   <title>Seçim Sandığında Bayes</title>
   <dc:creator>Kaan Öztürk</dc:creator>
-  <link>https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/index.html</link>
-  <description><![CDATA[ <img src="https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/secimsandigindabayes_oysayimi.jpg" class="img-fluid"> ]]></description>
+  <link>https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/</link>
+  <description><![CDATA[ Ardışık oy uzunluğuyla sonuç tahmini ]]></description>
   <category>Bayesian analysis</category>
-  <guid>https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/index.html</guid>
+  <guid>https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/</guid>
   <pubDate>Fri, 09 Jun 2023 21:00:00 GMT</pubDate>
   <media:content url="https://mkozturk.com/posts/tr/2023/secim-sandiginda-bayes/secimsandigindabayes_oysayimi.jpg" medium="image" type="image/jpeg"/>
 </item>
