@@ -10,7 +10,17 @@
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Wed, 11 Dec 2024 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 02 Feb 2025 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>How to set up your data science projects</title>
+  <dc:creator>Kaan Öztürk</dc:creator>
+  <link>https://mkozturk.com/posts/en/2025/set-up-data-science-projects/</link>
+  <description><![CDATA[ Tips from a minimalist perspective ]]></description>
+  <category>data science software</category>
+  <guid>https://mkozturk.com/posts/en/2025/set-up-data-science-projects/</guid>
+  <pubDate>Sun, 02 Feb 2025 21:00:00 GMT</pubDate>
+  <media:content url="https://mkozturk.com/posts/en/2025/set-up-data-science-projects/tai-bui-wf4F-KgJKgc-unsplash.jpg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>My lecture notes on R</title>
   <dc:creator>Kaan Öztürk</dc:creator>

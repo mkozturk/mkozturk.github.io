@@ -112,20 +112,19 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 </script>
-<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../../../../styles.css">
 <meta name="twitter:title" content="How to set up your data science projects – Kaan Öztürk">
 <meta name="twitter:description" content="Tips from a minimalist perspective">
-<meta name="twitter:image" content="https://mkozturk.com/posts/en/2024/project-structuring-for-the-minimalist-data-scientist-1/tai-bui-wf4F-KgJKgc-unsplash.jpg">
+<meta name="twitter:image" content="https://mkozturk.com/posts/en/2025/set-up-data-science-projects/tai-bui-wf4F-KgJKgc-unsplash.jpg">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -230,8 +229,8 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 </div>
 <p>You are a data scientist beginning with a new task. You think it through, decide on the models you’re going to try, establish your data sources. You are ready to start coding.</p>
 <p>How do you start?</p>
-<p>Maybe you launch a Jupyter notebook, import your libraries, and start hacking away. But, after you complete the task, what do you do with this huge notebook? Usually our work is in the middle of a chain of tasks, and a machine-learning model or a data transformation module must work together with other software. There’s more to be done before your program can be a part of daily operations.</p>
-<p>If you structure your code in a more software-engineering-friendly way, these later steps may become easier. Also, your code and analyses will be better organized and reproducible.</p>
+<p>Maybe you launch a Jupyter notebook, import your libraries, and start hacking away. But, after you complete the task, what do you do with this huge notebook? Usually our work is in the middle of a chain of tasks. A machine-learning model or a data transformation module takes input from other software, sends output to some other piece of software.</p>
+<p>If you structure your code in a more software-engineering-friendly way, these connections may become easier to establish. Also, your code and analyses will be better organized and reproducible.</p>
 <p>I come from an academic background. Programs I wrote in my academic career were limited in scope, and only to answer a specific question. When I switched careers, I had to think about how to set up a software project, and ask around. I know that there are quite a number of people like me, so I’d like to share some ideas that worked for me.</p>
 <p>Here are my steps for starting a data-science project:</p>
 <ol type="1">
@@ -239,13 +238,13 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <li>Create a virtual environment</li>
 <li>Push into GitHub</li>
 </ol>
-<p>Depending on your work flow, there may be other steps, such as a Dockerfile to dockerize your project, or configuration files for cloud services like AWS. I won’t discuss them here.</p>
-<p>I use Linux, and the following examples use Linux terminal. If you use Windows, you should look up the exact commands for the same tasks.</p>
+<p>Depending on your work flow, there may be other steps, such as setting up a Dockerfile to dockerize your project, or configuration files for cloud services like AWS. I won’t discuss them here.</p>
+<p>I use Linux, and the following examples use Linux terminal. I’m unable to describe these steps in other operating systems. If you use Windows, you should look up the exact commands for the tasks described here.</p>
 <section id="what-is-a-project" class="level2">
 <h2 class="anchored" data-anchor-id="what-is-a-project">What is a “project”?</h2>
 <p>Early in my work as a data scientist, a seasoned SW engineer had told me “just use a virtual environment for each project”. That was puzzling for me. What <em>is</em> my project?</p>
 <p>For me, the word “project” had a grand aura around it. A project would take a long time, maybe years. It would involve many people, led by a project manager. My daily work was far from that. I was just writing some Jupyter notebooks, producing source files, generating graphics for presentations. So, when my boss asks me to do a forecast of sales, how is that a “project”?</p>
-<p>My confusion cleared up when I realized that a project doesn’t have to be a big thing like a skyscraper, or an operating system. In fact, <strong>any task with a clear outcome and clear constraints is a project</strong>.</p>
+<p>My confusion cleared up when I realized that a project doesn’t have to be a big thing, like a skyscraper, or an operating system. In fact, <strong>any task with a clear outcome and clear constraints is a project</strong>.</p>
 <p>So, writing a program to forecast next year’s sales and generating a report is, indeed, a project. Creating a dashboard that queries the database daily and displays a graph of sales is another.</p>
 <p>You need to specify when you will be done with a project. For example, “researching the applications of LLMs in our market” is not a project, because you can never say that research is done. When you take up on a task, think about what the outcome should be, and set the boundaries of your project accordingly.</p>
 <p>The <a href="https://en.wikipedia.org/wiki/SMART_criteria">SMART criteria</a> of goal-setting can be relevant here. I find them hard to follow to the letter, but they are useful guidelines. You should try to understand the spirit of them.</p>
@@ -342,7 +341,6 @@ matplotlib</code></pre>
 <p>and <code>pip</code> installs the modules all at once.</p>
 <p>Whenever I need to install a new package, I just add it as a new line in <code>requirements.txt</code>, and run the command again.</p>
 <p>As a general rule, virtual environments must be regarded as disposable. With a <code>requirements.txt</code> file in place, you don’t need to remember which packages you’ve installed. You can create the entire environment with a single command.</p>
-<p>When we store our project in a GitHub repository (see next section), we should add the <code>.venv</code> directory to it. The full set of packages is rather large (tens of MBs) and may contain thousands of files, which is an unnecessary burden for version control. We just put the <code>requirements.txt</code> file to the repository, and we can recreate the environment as needed.</p>
 <p>Initially, I didn’t like having a separate environment for every project. It seemed like an unnecessary duplication of packages. I used a single global environment for all tasks. That caused two types of problems for me:</p>
 <ul>
 <li><p>When you add a new package, the package installer (<code>pip</code> or <code>conda</code>, or whatever you use) needs to check its compatibility against all existing packages. If you have too many packages, this may take a long time. The more packages you have, the higher is the probability of non-compatibility.</p></li>
@@ -355,9 +353,9 @@ matplotlib</code></pre>
 </section>
 <section id="push-to-a-github-repository" class="level2">
 <h2 class="anchored" data-anchor-id="push-to-a-github-repository">Push to a Github repository</h2>
-<p><em>git</em> is the currently accepted standard tool for version control of software projects, and <a href="https://github.com/">GitHub</a> is the most common web platform for sharing software projects.</p>
+<p><a href="https://git-scm.com/"><em>git</em></a> is the currently accepted standard tool for version control of software projects, and <a href="https://github.com/">GitHub</a> is the most common web platform for sharing software projects.</p>
 <p><em>git</em> allows you to keep track of all changes in your code, and revert them to a previous state, if necessary. More importantly, it is designed for collaborative software development. When people work on different parts of a project and combine their work, they may end up with many problems, inconsistencies or clashes. <em>git</em> does not fix the problems for you, but it helps you to correct them, or completely avoid them.</p>
-<p>If you are just starting out and working by yourself, you might think <em>git</em> is not necessary. Still, <em>git</em> is worth using even if you are not in a software team:</p>
+<p>If you are just starting out and working by yourself, you might find <em>git</em> unnecessary. Still, some understanding of <em>git</em> is valuable even if you are not in a software team:</p>
 <ul>
 <li>You are going to use <em>git</em> eventually, so you better make yourself familiar with it.</li>
 <li>Publishing your project on GitHub makes your work visible.</li>
@@ -377,8 +375,9 @@ matplotlib</code></pre>
 <div class="sourceCode" id="cb14"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git commit <span class="at">-m</span> <span class="st">"first commit"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now you have a local source-control system on your computer. As you develop your code and add new files, you can repeat the commands above to update the repository.</p>
 <p>Usually you want to synchronize this repository with the web, though. This is what GitHub is for.</p>
-<p>Create a repository on the GitHub web page. You’ll need to create an account, if you don’t have one already.</p>
-<p>Now connect your local repository to the remote repository:</p>
+<p>Create a repository on the GitHub web page. You’ll need to create an account, if you don’t have one already. Just fill in the “Repository name” and click “Create repository”</p>
+<p><img src="create_github_repo.png" class="img-fluid"></p>
+<p>Now connect your local repository to the remote repository with the command</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git remote add origin <span class="op">&lt;</span>repo-url<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Finally, synchronize the current <em>git</em> state with the remote repository:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> git push origin main</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -419,7 +418,7 @@ Tip
 </section>
 <section id="go-ahead" class="level2">
 <h2 class="anchored" data-anchor-id="go-ahead">Go ahead</h2>
-<p>Basic steps described in this post should be a flexible starting point for you. Go ahead and develop your code. You don’t need a perfect setup. If you realize you need more fine-grained organization, do it as you go.</p>
+<p>Basic steps described in this post should be a flexible starting point. Go ahead and develop your code. You don’t need a perfect setup. If you realize you need more fine-grained organization, do it as you go.</p>
 <p>There is one more optional step that I find useful: Set up your project as an installable Python package. This is not essential for a minimalist setup, and it deserves it own follow-up post.</p>
 
 
