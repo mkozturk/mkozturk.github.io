@@ -10,7 +10,17 @@
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Sun, 02 Feb 2025 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 14 Feb 2025 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>Generalizations of the Monty Hall Problem</title>
+  <dc:creator>Kaan Öztürk</dc:creator>
+  <link>https://mkozturk.com/posts/en/2025/generalizations-monty-hall/</link>
+  <description><![CDATA[ Really, you should always switch. ]]></description>
+  <category>probability</category>
+  <guid>https://mkozturk.com/posts/en/2025/generalizations-monty-hall/</guid>
+  <pubDate>Fri, 14 Feb 2025 21:00:00 GMT</pubDate>
+  <media:content url="https://mkozturk.com/posts/en/2025/generalizations-monty-hall/14d37feb-6c6e-4196-b0cd-04a095bd4301.webp" medium="image" type="image/webp"/>
+</item>
 <item>
   <title>How to set up your data science projects</title>
   <dc:creator>Kaan Öztürk</dc:creator>

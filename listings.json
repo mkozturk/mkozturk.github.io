@@ -10,6 +10,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/en/2025/generalizations-monty-hall/index.html",
       "/posts/en/2025/set-up-data-science-projects/index.html",
       "/posts/en/2024/r-lecture-notes/index.html",
       "/posts/en/2024/Estimating-probability-of-rare-events/index.html",
@@ -28,6 +29,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/en/2025/generalizations-monty-hall/index.html",
       "/posts/en/2025/set-up-data-science-projects/index.html",
       "/posts/en/2024/r-lecture-notes/index.html",
       "/posts/en/2024/Estimating-probability-of-rare-events/index.html",
