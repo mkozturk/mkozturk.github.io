@@ -10,7 +10,18 @@
 <atom:link href="https://mkozturk.com/blog.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.39</generator>
-<lastBuildDate>Fri, 14 Feb 2025 21:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 12 Apr 2025 21:00:00 GMT</lastBuildDate>
+<item>
+  <title>Set up a local MySQL server with Docker</title>
+  <dc:creator>Kaan Öztürk</dc:creator>
+  <link>https://mkozturk.com/posts/en/2025/mysql-docker/</link>
+  <description><![CDATA[ Getting ready to play with SQL using a container and DBeaver ]]></description>
+  <category>database</category>
+  <category>MySQL</category>
+  <guid>https://mkozturk.com/posts/en/2025/mysql-docker/</guid>
+  <pubDate>Sat, 12 Apr 2025 21:00:00 GMT</pubDate>
+  <media:content url="https://mkozturk.com/posts/en/2025/mysql-docker/logos.png" medium="image" type="image/png" height="107" width="144"/>
+</item>
 <item>
   <title>Generalizations of the Monty Hall Problem</title>
   <dc:creator>Kaan Öztürk</dc:creator>

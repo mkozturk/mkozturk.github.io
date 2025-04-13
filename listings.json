@@ -2,6 +2,7 @@
   {
     "listing": "/blog-en.html",
     "items": [
+      "/posts/en/2025/mysql-docker/index.html",
       "/posts/en/2025/set-up-data-science-projects/index.html",
       "/posts/en/2024/r-lecture-notes/index.html",
       "/posts/en/2024/Michels-method-for-numerical-solution-of-eom/index.html"
@@ -10,6 +11,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/posts/en/2025/mysql-docker/index.html",
       "/posts/en/2025/generalizations-monty-hall/index.html",
       "/posts/en/2025/set-up-data-science-projects/index.html",
       "/posts/en/2024/r-lecture-notes/index.html",
@@ -29,6 +31,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/en/2025/mysql-docker/index.html",
       "/posts/en/2025/generalizations-monty-hall/index.html",
       "/posts/en/2025/set-up-data-science-projects/index.html",
       "/posts/en/2024/r-lecture-notes/index.html",
