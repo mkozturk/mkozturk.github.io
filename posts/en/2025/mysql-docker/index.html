@@ -223,15 +223,15 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 
 <p><img src="logos.png" class="img-fluid"></p>
 <p>SQL is an essential tool for any data-related job. One of the most common SQL implementations is <a href="https://dev.mysql.com/">MySQL</a>.</p>
-<p>MySQL, like many other SQL interpreters, is set up as a client-server pair. The server software is responsible with managing the database and executing SQL commands. The user runs the client software to send the commands. Typically, the server is set up on a dedicated computer, and many clients access it over the network.</p>
-<p>If you are learning SQL, or if you are experimenting with data and you don’t want to risk breaking the database, you might want to set up both the client end the server on your own computer.</p>
+<p>MySQL, like many other SQL interpreters, is set up as a client-server pair. The server software is responsible for managing the database and executing SQL commands. The user runs the client software to send the commands. Typically, the server is set up on a dedicated computer, and many clients access it over the network.</p>
+<p>If you are learning SQL, or if you are experimenting with data and you don’t want to risk breaking the database, you might want to set up both the client and the server on your own computer.</p>
 <p>You can install MySQL server on your computer using the precompiled binaries. Detailed instructions can be found in the <a href="https://dev.mysql.com/doc/refman/8.4/en/installing.html">official documentation</a>. However, the setup involves some post-installation steps which can be difficult to follow.</p>
 <p>Alternatively, we can set up a Docker container that runs a MySQL server. This is very quick, and does not require you to tweak your own computer’s configuration. You will be able to run SQL commands in a few minutes.</p>
 <section id="install-docker-engine" class="level2">
 <h2 class="anchored" data-anchor-id="install-docker-engine">Install Docker engine</h2>
 <p><a href="https://docs.docker.com/">Docker usage</a> is a rich subject, but for practical purposes, you can think of a <em>Docker container</em> as an independent computer running within your computer.</p>
-<p>Containers are usually dedicated to single jobs, such as web servers, database servers, or other tasks. The specific description of software run in a container is called an <em>image</em>. Using Docker, you can create containers out of images, start or stop those containers. These can be done either by a command-line interface, or with a graphical interface (Docker Desktop). All lower-level tasks such as managing memory or disks, or handling network connections are handled by the Docker engine automatically.</p>
-<p>You can install the Docker Desktop for Linux, Windows, or MacOS using the <a href="https://docs.docker.com/desktop/">instructions in this page</a></p>
+<p>Containers are usually dedicated to a single job, such as web servers, database servers, or other tasks. The specific description of software run in a container is called an <em>image</em>. Using Docker, you can create containers out of images, start or stop those containers. This can be done either by a command-line interface, or with a graphical interface (Docker Desktop). All lower-level tasks such as managing memory or disks, or handling network connections are handled by the Docker engine automatically.</p>
+<p>You can install the Docker Desktop for Linux, Windows, or MacOS using the <a href="https://docs.docker.com/desktop/">instructions on this page</a></p>
 <p>If you use Linux and you are comfortable on the command line, you may just <a href="https://docs.docker.com/engine/install/">install the Docker Engine</a>. The rest of the text will use the command-line interface only.</p>
 </section>
 <section id="set-up-and-run-a-mysql-container" class="level2">
@@ -260,7 +260,7 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <p>The option <code>--name mysql_db</code> sets the name of the container to <code>mysql_db</code>, which you can change as you like.</p>
 <p>The server requires a password for access. The option <code>-e MYSQL_ROOT_PASSWORD=mypasswd</code> sets the password to <code>mypasswd</code>. You can change this to whatever you like.</p>
 <p>It is not secure to write the password explicitly like this, but as we are setting up the container on the same computer for personal use, we don’t worry too much about that. The <a href="https://hub.docker.com/_/mysql">image page</a> describes more secure ways of doing this.</p>
-<p>The <code>d</code> option runs the container in the background so that it keeps running even after you close the terminal window.</p>
+<p>The <code>-d</code> option runs the container in the background so that it keeps running even after you close the terminal window.</p>
 </section>
 <section id="connect-to-mysql-server-in-the-container" class="level2">
 <h2 class="anchored" data-anchor-id="connect-to-mysql-server-in-the-container">Connect to MySQL server in the container</h2>
@@ -302,14 +302,14 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="op">+</span><span class="co">----------+-----------+-------------------+--------------+</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">row</span> <span class="kw">in</span> <span class="kw">set</span> (<span class="fl">0.00</span> sec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In this interactive terminal, we can work with MySQL commands as we like.</p>
-<p>When we are done, we can end the session with <code>quit;</code> or by pressing Ctrl-D. We can reconnect at any time with the same <code>docker exec</code> comand above.</p>
+<p>When we are done, we can end the session with <code>quit;</code> or by pressing Ctrl-D. We can reconnect at any time with the same <code>docker exec</code> command above.</p>
 <p>The container can be stopped with the terminal command <code>docker stop mysql_db</code>. Your data will persist in the container. You can restart it with <code>docker start mysql_db</code>.</p>
-<p>When the container has stopped, you can remove it with <code>docker rm mysql_db</code>. You can easily recreate it with the <code>docker run</code> command as above. However, your data will be lost.</p>
+<p>When the container has been stopped, you can permanently delete it with <code>docker rm mysql_db</code>. Whenever you need it, you can easily recreate the container with the <code>docker run</code> command. However, this container will be a new one. Your data will be lost. The same will happen if you turn off your computer.</p>
 </section>
 <section id="create-persistent-storage" class="level2">
 <h2 class="anchored" data-anchor-id="create-persistent-storage">Create persistent storage</h2>
-<p>If the container is deleted, or if your computer is turned off, the data will be lost. In order to avoid that we can use a <em>bind mount</em>. This maps a directory in your computer (the <em>host</em>) to a directory in the container. So, the container will be reading and writing with this directory.</p>
-<p>Let’s stop our container and delete it:</p>
+<p>To avoid data loss, we can use a <em>bind mount</em> with the container. A bind mount associates a directory in your computer (the <em>host</em>) with a directory in the container. This will make the data persist on your computer.</p>
+<p>Let’s stop our existing container and delete it:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker stop mysql_db</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql_db</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker rm mysql_db</span>
@@ -367,7 +367,7 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="ex">...</span></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="ex">$</span> docker exec <span class="at">-it</span> mysql_db mysql <span class="at">-uroot</span> <span class="at">-pmypasswd</span></span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="ex">mysql</span><span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>SHOW DATABASES</code> command shows that our new database is still there. Any data that we put into the database will be available even after the container is deleted. Further, it will be available for other containers, too, if you want.</p>
+<p>The <code>SHOW DATABASES</code> command shows that our new database still exists. Any data that we put into the database will be available even after the container is deleted. Further, it can be shared across several containers, if needed.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>mysql<span class="op">&gt;</span> show databases;</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">+</span><span class="co">--------------------+</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>| <span class="kw">Database</span>           |</span>
@@ -392,7 +392,7 @@ gtag('config', 'G-5PQNVMN09N', { 'anonymize_ip': true});
 <p>Click on “Test Connection …” to verify that the database can be accessed. If successful, you will be able to see the new connection on the “Database Navigator” sidebar. The newly created database “my_database” is also available.</p>
 <p>With DBeaver, you don’t need the interactive SQL client (the one generated with <code>docker exec</code>). As long as you have the MySQL container running in the background, DBeaver can access the server.</p>
 <p><img src="dbeaver-navigator.png" class="img-fluid"></p>
-<p>Now you’re ready to play with your database. Instead of MySQL, you can use any other database by downloading its image and running in a container. The default ports or environment variables my differ, though. Check their documentation.</p>
+<p>Now you’re ready to play with your database. Instead of MySQL, you can use any other database by downloading its image and running in a container. The default ports or environment variables may differ, though. Check their documentation.</p>
 
 
 </section>
